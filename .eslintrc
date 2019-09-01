@@ -1,0 +1,18 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "curly": "error",
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"],
+    "no-console": "warn",
+    "no-shadow": "warn",
+    "comma-dangle": "error",
+    "react/prop-types": "off"
+  }
+}

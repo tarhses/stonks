@@ -1,0 +1,5 @@
+dist/
+node_modules/
+
+# IDE-specific files
+.idea/
