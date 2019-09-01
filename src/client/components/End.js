@@ -12,7 +12,7 @@ const End = ({ players }) => {
 
     return (
         <div>
-            <p>The game is over. <b>{players[0].name}</b> won!</p>
+            <p>The game is over. <b>{players[results[0][0]].name}</b> won!</p>
             <ol>
                 {results.map(([id, score]) =>
                     <li key={id}>
