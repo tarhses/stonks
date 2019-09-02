@@ -92,11 +92,11 @@ export default function App() {
 
     let content;
     if (!state) {
-        content = <Login onLogin={on(enterRoom)}/>;
+        content = <Login onLogin={on(enterRoom)} />;
     } else if (!state.status) {
-        content = <Lobby players={state.players} roomId={state.roomId} selfId={state.selfId}/>;
+        content = <Lobby players={state.players} roomId={state.roomId} selfId={state.selfId} />;
     } else {
-        content = <Game state={state} messages={messages}/>;
+        content = <Game state={state} messages={messages} dispatch={dispatch} />;
     }
 
     return (

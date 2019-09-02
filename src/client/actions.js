@@ -11,7 +11,8 @@ import {
     SELL_ANIMAL,
     START_AUCTION,
     START_OFFER,
-    START_TURN
+    START_TURN,
+    STOP_BID
 } from "../common/signals.js";
 
 export function enterRoom(data) {
@@ -40,6 +41,10 @@ export function restartAuction(capital, timeout) {
 
 export function makeBid(bidderId, amount, timeout) {
     return { type: MAKE_BID, bidderId, amount, timeout };
+}
+
+export function stopBid() {
+    return { type: STOP_BID };
 }
 
 export function endAuction() {

@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
 import animals from "../../common/animals.json";
 import { MAKE_BID, STOP_BID } from "../../common/signals.js";
+import { stopBid } from "../actions.js";
 
-export default function Auction({ players, status, selfId }) {
+export default function Auction({ players, status, selfId, dispatch }) {
     const socket = useSocket();
     const [input, setInput] = useState("");
 
-    const { playerId, bidderId, animalId, amount } = status;
+    const { playerId, bidderId, animalId, amount, bidding } = status;
     const player = players[playerId];
     const bidder = players[bidderId];
     const animal = animals[animalId];
 
-    function handleSubmit(event) {
+    function handleBid(event) {
         event.preventDefault(); // don't refresh the page
 
         // The parseInt function returns NaN when it gets an incorrect number
@@ -23,6 +24,11 @@ export default function Auction({ players, status, selfId }) {
         }
 
         setInput("");
+    }
+
+    function handleStop() {
+        socket.emit(STOP_BID);
+        dispatch(stopBid()); // TODO: put dispatch in a context
     }
 
     return (
@@ -42,14 +48,14 @@ export default function Auction({ players, status, selfId }) {
             </p>
 
             {selfId !== playerId &&
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handleBid} >
                     <input
                         value={input}
                         onChange={event => setInput(event.target.value)}
                         placeholder={Math.floor(amount / 10 + 1) * 10}
                     />
                     <button type="submit">Make a bid</button>
-                    <button type="button" onClick={() => socket.emit(STOP_BID)}>Stop</button>
+                    <button type="button" disabled={!bidding || selfId === bidderId} onClick={handleStop}>Stop</button>
                 </form>
             }
         </div>

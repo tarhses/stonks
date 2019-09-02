@@ -94,7 +94,7 @@ export default class Room {
             players: this.players.map(p => p.serialize()),
             capital: this.players[selfId].capital,
             animals: this.animals,
-            status: this.status.serialize(),
+            status: this.status.serialize(selfId),
             roomId: this.id,
             selfId
         };

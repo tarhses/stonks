@@ -10,7 +10,7 @@ export default class Auction extends Status {
     animalId;
     timeout;
     amount = 0;
-    #bidders;
+    bidders;
     #timeoutId;
 
     constructor(room, restart) {
@@ -19,8 +19,8 @@ export default class Auction extends Status {
         this.animalId = restart ? room.status.animalId : room.pickAnimal();
         this.timeout = this.startTimeout(rules.auctionTimeout);
 
-        this.#bidders = new Set(room.players.keys());
-        this.#bidders.delete(this.playerId); // the current player can't make bids
+        this.bidders = new Set(room.players.keys());
+        this.bidders.delete(this.playerId); // the selling player can't make bids
 
         if (restart) {
             // A player couldn't afford a bid, we'll reveal his capital and restart the auction
@@ -63,7 +63,7 @@ export default class Auction extends Status {
             this.room.emit(MAKE_BID, this.bidderId, this.amount, this.timeout);
 
             // Put the new highest bidder back in the game if he previously stopped
-            this.#bidders.add(bidder.id);
+            this.bidders.add(bidder.id);
         }
     }
 
@@ -71,20 +71,21 @@ export default class Auction extends Status {
         if (bidder.id !== this.bidderId) {
             // The highest bidder can't stop
             // If he is the only remaining bidder, he wins the auction
-            this.#bidders.delete(bidder.id);
-            if (this.#bidders.size === 1 && this.#bidders.has(this.bidderId)) {
+            this.bidders.delete(bidder.id);
+            if (this.bidders.size === 0 || (this.bidders.size === 1 && this.bidders.has(this.bidderId))) {
                 this.stopAuction();
             }
         }
     }
 
-    serialize() {
+    serialize(selfId) {
         return {
             type: "auction",
             playerId: this.playerId,
             bidderId: this.bidderId,
             animalId: this.animalId,
             amount: this.amount,
+            bidding: this.bidders.has(selfId),
             timeout: this.timeout
         };
     }

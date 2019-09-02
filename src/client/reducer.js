@@ -13,7 +13,7 @@ import {
     SELL_ANIMAL,
     START_AUCTION,
     START_OFFER,
-    START_TURN
+    START_TURN, STOP_BID
 } from "../common/signals.js";
 
 function players(state, action) {
@@ -86,7 +86,7 @@ function animals(state, action) {
     }
 }
 
-function status(state, action) {
+function status(state, action, selfId) {
     switch (action.type) {
         case START_TURN:
             return {
@@ -95,22 +95,14 @@ function status(state, action) {
             };
 
         case START_AUCTION:
-            return {
-                type: "auction",
-                playerId: state.playerId,
-                bidderId: state.playerId,
-                animalId: action.animalId,
-                amount: 0,
-                timeout: action.timeout
-            };
-
         case RESTART_AUCTION:
             return {
                 type: "auction",
                 playerId: state.playerId,
                 bidderId: state.playerId,
-                animalId: state.animalId,
+                animalId: action.type === START_AUCTION ? action.animalId : state.animalId,
                 amount: 0,
+                bidding: selfId !== state.playerId,
                 timeout: action.timeout
             };
 
@@ -119,7 +111,14 @@ function status(state, action) {
                 ...state,
                 bidderId: action.bidderId,
                 amount: action.amount,
+                bidding: selfId === action.bidderId ? true : state.bidding,
                 timeout: action.timeout
+            };
+
+        case STOP_BID:
+            return {
+                ...state,
+                bidding: false
             };
 
         case END_AUCTION:
@@ -159,7 +158,7 @@ export default (state, action) => {
             players: players(state.players, action),
             capital: capital(state.capital, action),
             animals: animals(state.animals, action),
-            status: status(state.status, action),
+            status: status(state.status, action, state.selfId), // TODO: passing selfId here is kind of a hack :p
             roomId: state.roomId,
             selfId: action.type === REMOVE_PLAYER && state.selfId > action.playerId
                 ? state.selfId - 1

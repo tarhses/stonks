@@ -9,11 +9,11 @@ import PlayerTable from "./PlayerTable.js";
 import Chat from "./Chat.js";
 import RoomInformation from "./RoomInformation.js";
 
-export default function Game({ state, messages }) {
+export default function Game({ state, messages, dispatch }) {
     let content;
     switch (state.status.type) {
         case "turn":       content = <Turn {...state} />;       break;
-        case "auction":    content = <Auction {...state} />;    break;
+        case "auction":    content = <Auction {...state} dispatch={dispatch} />;    break;
         case "auctionEnd": content = <AuctionEnd {...state} />; break;
         case "offer":      content = <Offer {...state} />;      break;
         case "end":        content = <End {...state} />;        break;
