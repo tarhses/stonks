@@ -4,10 +4,11 @@ import Lobby from "./states/Lobby.js";
 import rules from "../common/rules.json";
 import animals from "../common/animals.json";
 
-const generateId = () =>
+function generateId() {
     // Use 18 bytes (multiple of 3) to avoid base64 padding, also use a url-friendly variant
     // We could make this function async but we don't really care about performances right now
-    crypto.randomBytes(18).toString("base64").replace(/\+/g, "-").replace(/\//g, "_");
+    return crypto.randomBytes(18).toString("base64").replace(/\+/g, "-").replace(/\//g, "_");
+}
 
 export default class Room {
     id;

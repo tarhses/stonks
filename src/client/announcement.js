@@ -1,13 +1,14 @@
 import animals from "../common/animals.json";
+import { EARN_CAPITAL, PAY_CAPITAL, RESTART_AUCTION, SELL_ANIMAL } from "../common/signals.js";
 
-const announcement = (state, action) => {
+export default function announcement(state, action) {
     switch (action.type) {
-        case "RESTART_AUCTION": {
+        case RESTART_AUCTION: {
             const bidder = state.players[state.status.bidderId].name;
             return `${bidder} can't afford ${state.status.amount}$, his capital is: ${action.capital.join("$, ")}$.`;
         }
 
-        case "SELL_ANIMAL": {
+        case SELL_ANIMAL: {
             const seller = state.players[action.sellerId].name;
             const buyer = state.players[action.buyerId].name;
             const animal = animals[action.animalId];
@@ -22,12 +23,10 @@ const announcement = (state, action) => {
             }
         }
 
-        case "EARN_CAPITAL":
-        case "LOSE_CAPITAL": {
+        case EARN_CAPITAL:
+        case PAY_CAPITAL: {
             const sum = action.capital.reduce((a, b) => a + b, 0);
             return `You ${action.type === "EARN_CAPITAL" ? "earned" : "paid"} ${sum}$`;
         }
     }
-};
-
-export default announcement;
+}

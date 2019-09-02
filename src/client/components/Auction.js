@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
 import animals from "../../common/animals.json";
+import { MAKE_BID, STOP_BID } from "../../common/signals.js";
 
-const Auction = ({ players, status, selfId }) => {
+export default function Auction({ players, status, selfId }) {
     const socket = useSocket();
     const [input, setInput] = useState("");
 
@@ -11,22 +12,18 @@ const Auction = ({ players, status, selfId }) => {
     const bidder = players[bidderId];
     const animal = animals[animalId];
 
-    const handleSubmit = e => {
-        e.preventDefault(); // don't refresh the page
+    function handleSubmit(event) {
+        event.preventDefault(); // don't refresh the page
 
-        if (input.trim().toLowerCase() === "stop") {
-            socket.emit("stop");
-        } else {
-            // The parseInt function returns NaN when it gets an incorrect number
-            // In this case, (NaN > highestBid) always returns false, so we'll be safe
-            const bid = parseInt(input);
-            if (bid > amount) {
-                socket.emit("bid", bid);
-            }
+        // The parseInt function returns NaN when it gets an incorrect number
+        // In this case, (NaN > highestBid) always returns false, so we'll be safe
+        const bid = parseInt(input);
+        if (bid > amount) {
+            socket.emit(MAKE_BID, bid);
         }
 
         setInput("");
-    };
+    }
 
     return (
         <div>
@@ -43,20 +40,18 @@ const Auction = ({ players, status, selfId }) => {
                     : <b>{bidder.name}</b>
                 }.
             </p>
-            
+
             {selfId !== playerId &&
                 <form onSubmit={handleSubmit} >
                     <input
                         value={input}
-                        onChange={e => setInput(e.target.value)}
+                        onChange={event => setInput(event.target.value)}
                         placeholder={Math.floor(amount / 10 + 1) * 10}
                     />
-                    <button>Make a bid</button>
-                    <small> Type in &quot;stop&quot; to withdraw from the auction.</small>
+                    <button type="submit">Make a bid</button>
+                    <button type="button" onClick={() => socket.emit(STOP_BID)}>Stop</button>
                 </form>
             }
         </div>
     );
-};
-
-export default Auction;
+}

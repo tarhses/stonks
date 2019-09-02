@@ -2,8 +2,9 @@ import React from "react";
 import { useSocket } from "../hooks.js";
 import Capital from "./Capital.js";
 import animals from "../../common/animals.json";
+import { COUNTER_OFFER } from "../../common/signals.js";
 
-const Offer = ({ players, capital, status, selfId }) => {
+export default function Offer({ players, capital, status, selfId }) {
     const socket = useSocket();
 
     const { playerId, targetId, animalId, change } = status;
@@ -27,7 +28,7 @@ const Offer = ({ players, capital, status, selfId }) => {
         return (
             <div>
                 <p><b>{player.name}</b> made an offer to buy {what} from you (change: {change}).</p>
-                <Capital capital={capital} offer onSelected={list => socket.emit("counter", list)} />
+                <Capital capital={capital} offer onSelected={list => socket.emit(COUNTER_OFFER, list)} />
             </div>
         );
     }
@@ -37,6 +38,4 @@ const Offer = ({ players, capital, status, selfId }) => {
             <p><b>{player.name}</b> made an offer to <b>{target.name}</b> to buy {what} (change: {change}).</p>
         </div>
     );
-};
-
-export default Offer;
+}

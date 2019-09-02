@@ -1,6 +1,7 @@
 import Status from "../Status.js";
 import Auction from "./Auction.js";
 import Offer from "./Offer.js";
+import { START_TURN } from "../../common/signals.js";
 
 export default class Turn extends Status {
     playerId;
@@ -11,7 +12,7 @@ export default class Turn extends Status {
         this.playerId = playerId;
         this.animalsLeft = room.animalCount > 0;
 
-        room.emit("turn", this.playerId, this.animalsLeft);
+        room.emit(START_TURN, this.playerId, this.animalsLeft);
     }
 
     onSell(player) {

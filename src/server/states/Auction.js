@@ -2,6 +2,7 @@ import Status from "../Status.js";
 import AuctionEnd from "./AuctionEnd.js";
 import nextTurn from "./nextTurn.js";
 import rules from "../../common/rules.json";
+import { MAKE_BID, RESTART_AUCTION, SELL_ANIMAL, START_AUCTION } from "../../common/signals.js";
 
 export default class Auction extends Status {
     playerId;
@@ -23,9 +24,9 @@ export default class Auction extends Status {
 
         if (restart) {
             // A player couldn't afford a bid, we'll reveal his capital and restart the auction
-            room.emit("reauction", room.players[room.status.bidderId].capital, this.timeout);
+            room.emit(RESTART_AUCTION, room.players[room.status.bidderId].capital, this.timeout);
         } else {
-            room.emit("auction", this.animalId, this.timeout);
+            room.emit(START_AUCTION, this.animalId, this.timeout);
         }
     }
 
@@ -39,7 +40,7 @@ export default class Auction extends Status {
             // Nobody made a bid, the player gets the animal for free
             const player = this.room.players[this.playerId];
             player.animals[this.animalId]++;
-            this.room.emit("sell", player.id, player.id, this.animalId, 0, 0); // sell to himself
+            this.room.emit(SELL_ANIMAL, player.id, player.id, this.animalId, 0, 0); // sell to himself
 
             // There's no need to go to the AuctionEnd state
             this.room.status = nextTurn(this.room);
@@ -59,7 +60,7 @@ export default class Auction extends Status {
             this.bidderId = bidder.id;
             this.amount = amount;
             this.timeout = this.startTimeout(rules.bidTimeout);
-            this.room.emit("bid", this.bidderId, this.amount, this.timeout);
+            this.room.emit(MAKE_BID, this.bidderId, this.amount, this.timeout);
 
             // Put the new highest bidder back in the game if he previously stopped
             this.#bidders.add(bidder.id);

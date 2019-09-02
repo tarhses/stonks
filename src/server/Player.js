@@ -1,5 +1,6 @@
 import rules from "../common/rules.json";
 import animals from "../common/animals.json";
+import { EARN_CAPITAL, PAY_CAPITAL } from "../common/signals.js";
 
 const SessionSymbol = Symbol("session");
 
@@ -28,7 +29,7 @@ export default class Player {
                 this.capital.splice(i, 0, value);
             }
 
-            this.emit("earn", capital);
+            this.emit(EARN_CAPITAL, capital);
         }
     }
 
@@ -43,7 +44,7 @@ export default class Player {
                 this.capital.splice(i, 1);
             }
 
-            this.emit("pay", capital);
+            this.emit(PAY_CAPITAL, capital);
         }
     }
 

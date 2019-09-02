@@ -1,9 +1,24 @@
 import rules from "../common/rules.json";
 import animals from "../common/animals.json";
+import {
+    ADD_PLAYER,
+    EARN_CAPITAL,
+    END_AUCTION,
+    END_GAME,
+    ENTER_ROOM,
+    MAKE_BID,
+    PAY_CAPITAL,
+    REMOVE_PLAYER,
+    RESTART_AUCTION,
+    SELL_ANIMAL,
+    START_AUCTION,
+    START_OFFER,
+    START_TURN
+} from "../common/signals.js";
 
-const players = (state, action) => {
+function players(state, action) {
     switch (action.type) {
-        case "ADD_PLAYER":
+        case ADD_PLAYER:
             return [
                 ...state,
                 {
@@ -13,15 +28,15 @@ const players = (state, action) => {
                 }
             ];
 
-        case "REMOVE_PLAYER":
+        case REMOVE_PLAYER:
             return state.filter((player, id) => id !== action.playerId);
 
-        case "START_AUCTION":
+        case START_AUCTION:
             return animals[action.animalId].giveIncome
                 ? state.map(player => ({ ...player, change: player.change + 1 }))
                 : state;
 
-        case "SELL_ANIMAL": {
+        case SELL_ANIMAL: {
             return state.map((player, playerId) => {
                 if (playerId === action.sellerId || playerId === action.buyerId) {
                     const factor = playerId === action.buyerId ? 1 : -1;
@@ -43,19 +58,19 @@ const players = (state, action) => {
         default:
             return state;
     }
-};
+}
 
-const capital = (state, action) => {
+function capital(state, action) {
     switch (action.type) {
-        case "START_AUCTION":
+        case START_AUCTION:
             return action.income
                 ? [action.income, ...state]
                 : state;
 
-        case "EARN_CAPITAL":
+        case EARN_CAPITAL:
             return [...state, ...action.capital].sort((a, b) => b - a);
 
-        case "LOSE_CAPITAL":
+        case PAY_CAPITAL:
             return action.capital.reduce((acc, value) => {
                 acc.splice(acc.findIndex(item => item === value), 1);
                 return acc;
@@ -64,18 +79,18 @@ const capital = (state, action) => {
         default:
             return state;
     }
-};
+}
 
-const status = (state, action) => {
+function status(state, action) {
     switch (action.type) {
-        case "START_TURN":
+        case START_TURN:
             return {
                 type: "turn",
                 playerId: action.playerId,
                 animalsLeft: action.animalsLeft
             };
 
-        case "START_AUCTION":
+        case START_AUCTION:
             return {
                 type: "auction",
                 playerId: state.playerId,
@@ -85,7 +100,7 @@ const status = (state, action) => {
                 timeout: action.timeout
             };
 
-        case "RESTART_AUCTION":
+        case RESTART_AUCTION:
             return {
                 type: "auction",
                 playerId: state.playerId,
@@ -95,7 +110,7 @@ const status = (state, action) => {
                 timeout: action.timeout
             };
 
-        case "AUCTION_BID":
+        case MAKE_BID:
             return {
                 ...state,
                 bidderId: action.bidderId,
@@ -103,7 +118,7 @@ const status = (state, action) => {
                 timeout: action.timeout
             };
 
-        case "AUCTION_END":
+        case END_AUCTION:
             return {
                 type: "auctionEnd",
                 playerId: state.playerId,
@@ -112,7 +127,7 @@ const status = (state, action) => {
                 amount: state.amount
             };
 
-        case "START_OFFER":
+        case START_OFFER:
             return {
                 type: "offer",
                 playerId: state.playerId,
@@ -122,7 +137,7 @@ const status = (state, action) => {
                 change: action.change
             };
 
-        case "END_GAME":
+        case END_GAME:
             return {
                 type: "end"
             };
@@ -130,14 +145,14 @@ const status = (state, action) => {
         default:
             return state;
     }
-};
+}
 
 export default (state, action) => {
     switch (action.type) {
-        case "LOGIN":
+        case ENTER_ROOM:
             return action.data;
 
-        case "REMOVE_PLAYER":
+        case REMOVE_PLAYER:
             return {
                 ...state,
                 players: players(state.players, action),

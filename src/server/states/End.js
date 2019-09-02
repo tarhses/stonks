@@ -1,13 +1,14 @@
 import Status from "../Status.js";
+import { END_GAME, NONEXISTENT_ERROR } from "../../common/signals.js";
 
 export default class End extends Status {
     constructor(room) {
         super(room);
-        room.emit("end");
+        room.emit(END_GAME);
     }
 
     onEnter() {
-        return "This room doesn't exist.";
+        return NONEXISTENT_ERROR;
     }
 
     serialize() {

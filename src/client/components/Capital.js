@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const Capital = ({ capital, offer, onSelected }) => {
+export default function Capital({ capital, offer, onSelected }) {
     const [selection, setSelection] = useState(capital.map(() => false));
 
     useEffect(() => {
@@ -25,13 +25,11 @@ const Capital = ({ capital, offer, onSelected }) => {
             </p>
 
             {offer
-                ? <p><b>Selected :</b> {selected.reduce((acc, value) => acc + value, 0)}$ ({selected.length}/{capital.length}).</p>
-                : <p><b>Total :</b> {capital.reduce((sum, value) => sum + value, 0)}$.</p>
+                ? <p><b>Selected:</b> {selected.reduce((acc, value) => acc + value, 0)}$ ({selected.length}/{capital.length}).</p>
+                : <p><b>Total:</b> {capital.reduce((sum, value) => sum + value, 0)}$.</p>
             }
 
             {offer && <button onClick={() => onSelected(selected)}>Make offer</button>}
         </div>
     );
-};
-
-export default Capital;
+}

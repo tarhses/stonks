@@ -1,15 +1,16 @@
 import React from "react";
 import { useSocket } from "../hooks.js";
 import animals from "../../common/animals.json";
+import { SELL_ANIMAL } from "../../common/signals.js";
 
-const AuctionEnd = ({ players, capital, status, selfId }) => {
+export default function AuctionEnd({ players, capital, status, selfId }) {
     const socket = useSocket();
 
     const { playerId, bidderId, animalId, amount } = status;
     const player = players[playerId];
     const bidder = players[bidderId];
     const animal = animals[animalId];
-    const money = capital.reduce((sum, value) => sum + value, 0);
+    const sum = capital.reduce((a, b) => a + b, 0);
 
     return (
         <div>
@@ -25,16 +26,14 @@ const AuctionEnd = ({ players, capital, status, selfId }) => {
 
             {selfId === playerId &&
                 <div>
-                    <button onClick={() => socket.emit("deal")}>
+                    <button onClick={() => socket.emit(SELL_ANIMAL, false)}>
                         Sell the {animal.name} to <b>{bidder.name}</b>
                     </button>
-                    <button onClick={() => socket.emit("buyback")} disabled={money < amount}>
+                    <button onClick={() => socket.emit(SELL_ANIMAL, true)} disabled={sum < amount}>
                         Buy the {animal.name} back
                     </button>
                 </div>
             }
         </div>
     );
-};
-
-export default AuctionEnd;
+}

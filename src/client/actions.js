@@ -1,38 +1,67 @@
-export const login = data =>
-    ({ type: "LOGIN", data });
+import {
+    ADD_PLAYER,
+    EARN_CAPITAL,
+    END_AUCTION,
+    END_GAME,
+    ENTER_ROOM,
+    MAKE_BID,
+    PAY_CAPITAL,
+    REMOVE_PLAYER,
+    RESTART_AUCTION,
+    SELL_ANIMAL,
+    START_AUCTION,
+    START_OFFER,
+    START_TURN
+} from "../common/signals.js";
 
-export const addPlayer = playerName =>
-    ({ type: "ADD_PLAYER", playerName });
+export function enterRoom(data) {
+    return { type: ENTER_ROOM, data };
+}
 
-export const removePlayer = playerId =>
-    ({ type: "REMOVE_PLAYER", playerId });
+export function addPlayer(playerName) {
+    return { type: ADD_PLAYER, playerName };
+}
 
-export const startTurn = (playerId, animalsLeft) =>
-    ({ type: "START_TURN", playerId, animalsLeft });
+export function removePlayer(playerId) {
+    return { type: REMOVE_PLAYER, playerId };
+}
 
-export const startAuction = (animalId, timeout) =>
-    ({ type: "START_AUCTION", animalId, timeout });
+export function startTurn(playerId, animalsLeft) {
+    return { type: START_TURN, playerId, animalsLeft };
+}
 
-export const restartAuction = (capital, timeout) =>
-    ({ type: "RESTART_AUCTION", capital, timeout });
+export function startAuction(animalId, timeout) {
+    return { type: START_AUCTION, animalId, timeout };
+}
 
-export const auctionBid = (bidderId, amount, timeout) =>
-    ({ type: "AUCTION_BID", bidderId, amount, timeout });
+export function restartAuction(capital, timeout) {
+    return { type: RESTART_AUCTION, capital, timeout };
+}
 
-export const auctionEnd = () =>
-    ({ type: "AUCTION_END" });
+export function makeBid(bidderId, amount, timeout) {
+    return { type: MAKE_BID, bidderId, amount, timeout };
+}
 
-export const startOffer = (targetId, animalId, count, change) =>
-    ({ type: "START_OFFER", targetId, animalId, count, change });
+export function endAuction() {
+    return { type: END_AUCTION };
+}
 
-export const sellAnimal = (sellerId, buyerId, animalId, count, change) =>
-    ({ type: "SELL_ANIMAL", sellerId, buyerId, animalId, count, change });
+export function startOffer(targetId, animalId, count, change) {
+    return { type: START_OFFER, targetId, animalId, count, change };
+}
 
-export const earnCapital = capital =>
-    ({ type: "EARN_CAPITAL", capital });
+export function sellAnimal(sellerId, buyerId, animalId, count, change) {
+    return { type: SELL_ANIMAL, sellerId, buyerId, animalId, count, change };
+}
 
-export const loseCapital = capital =>
-    ({ type: "LOSE_CAPITAL", capital });
+export function earnCapital(capital) {
+    return { type: EARN_CAPITAL, capital };
+}
 
-export const endGame = () =>
-    ({ type: "END_GAME" });
+export function payCapital(capital) {
+    return { type: PAY_CAPITAL, capital };
+}
+
+export function endGame() {
+    return { type: END_GAME };
+}

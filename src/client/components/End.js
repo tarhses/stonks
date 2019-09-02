@@ -2,7 +2,7 @@ import React from "react";
 import rules from "../../common/rules.json";
 import animals from "../../common/animals.json";
 
-const End = ({ players }) => {
+export default function End({ players }) {
     const results = players.map((player, playerId) => {
         const scores = player.animals
             .map((count, animalId) => count === rules.animalCount ? animals[animalId].score : 0)
@@ -22,6 +22,4 @@ const End = ({ players }) => {
             </ol>
         </div>
     );
-};
-
-export default End;
+}

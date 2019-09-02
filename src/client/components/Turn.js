@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
 import Capital from "./Capital.js";
 import animals from "../../common/animals.json";
+import { START_AUCTION, START_OFFER } from "../../common/signals.js";
 
-const Turn = ({ players, capital, status, selfId }) => {
+export default function Turn({ players, capital, status, selfId }) {
     const socket = useSocket();
     const [offer, setOffer] = useState(null);
 
@@ -15,7 +16,7 @@ const Turn = ({ players, capital, status, selfId }) => {
             const choices = [];
 
             if (status.animalsLeft) {
-                choices.push(<button onClick={() => socket.emit("sell")}>Sell an animal</button>);
+                choices.push(<button onClick={() => socket.emit(START_AUCTION)}>Sell an animal</button>);
             }
 
             for (const [targetId, target] of players.entries()) {
@@ -60,7 +61,7 @@ const Turn = ({ players, capital, status, selfId }) => {
         return (
             <div>
                 <p>You&apos;re going to buy {offer.count === 1 ? `a ${animal.name}` : `two ${animal.namePlural}`} from <b>{target.name}</b>.</p>
-                <Capital capital={capital} offer onSelected={list => socket.emit("buy", offer.targetId, offer.animalId, list)} />
+                <Capital capital={capital} offer onSelected={list => socket.emit(START_OFFER, offer.targetId, offer.animalId, list)} />
                 <button onClick={() => setOffer(null)}>Cancel</button>
             </div>
         );
@@ -71,6 +72,4 @@ const Turn = ({ players, capital, status, selfId }) => {
             <p>It&apos;s <b>{player.name}</b>&apos;s turn.</p>
         </div>
     );
-};
-
-export default Turn;
+}

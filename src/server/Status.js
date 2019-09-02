@@ -1,3 +1,5 @@
+import { FULL_ERROR } from "../common/signals.js";
+
 export default class Status {
     room;
 
@@ -9,7 +11,7 @@ export default class Status {
         // Only admit reconnections
         const player = this.room.findPlayer(playerName);
         if (!player || player.connected) {
-            return "This room has already started playing.";
+            return FULL_ERROR;
         }
 
         player.connect(socket);
@@ -30,8 +32,6 @@ export default class Status {
     onStop() {}
 
     onDeal() {}
-
-    onBuyback() {}
 
     onBuy() {}
 

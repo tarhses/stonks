@@ -9,7 +9,7 @@ import PlayerTable from "./PlayerTable.js";
 import Chat from "./Chat.js";
 import RoomInformation from "./RoomInformation.js";
 
-const Game = ({ state, messages }) => {
+export default function Game({ state, messages }) {
     let content;
     switch (state.status.type) {
         case "turn":       content = <Turn {...state} />;       break;
@@ -38,6 +38,4 @@ const Game = ({ state, messages }) => {
             <RoomInformation name={state.players[state.selfId].name} id={state.roomId} />
         </div>
     );
-};
-
-export default Game;
+}

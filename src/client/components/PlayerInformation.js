@@ -1,7 +1,7 @@
 import React from "react";
 import animals from "../../common/animals.json";
 
-const PlayerInformation = ({ player }) => {
+export default function PlayerInformation({ player }) {
     const ownedAnimals = Array
         .from(player.animals.entries()) // transform each item to [id, count]
         .filter(([, count]) => count > 0); // remove any item if count < 1
@@ -31,6 +31,4 @@ const PlayerInformation = ({ player }) => {
             </td>
         </tr>
     );
-};
-
-export default PlayerInformation;
+}

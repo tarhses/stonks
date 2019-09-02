@@ -1,8 +1,9 @@
 import React from "react";
 import { useSocket } from "../hooks.js";
 import RoomInformation from "./RoomInformation.js";
+import { START_TURN } from "../../common/signals.js";
 
-const Lobby = ({ players, roomId, selfId }) => {
+export default function Lobby({ players, roomId, selfId }) {
     const socket = useSocket();
 
     const remaining = 3 - players.length;
@@ -23,16 +24,14 @@ const Lobby = ({ players, roomId, selfId }) => {
                 </ul>
             </div>
 
-                <hr/>
-                <button
-                    className="btn primary w-100"
-                    onClick={() => socket.emit("start")}
-                    disabled={remaining > 0}
-                >
-                    Start
-                </button>
+            <hr/>
+            <button
+                className="btn primary w-100"
+                onClick={() => socket.emit(START_TURN)}
+                disabled={remaining > 0}
+            >
+                Start
+            </button>
         </div>
     );
-};
-
-export default Lobby;
+}

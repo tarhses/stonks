@@ -1,42 +1,51 @@
 import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
+import { CREATE_ROOM, ENTER_ROOM, FULL_ERROR, NAME_ERROR, NONEXISTENT_ERROR } from "../../common/signals.js";
 
 function getRoomIdFromUrl() {
     const id = location.pathname.replace("/", ""); // remove the leading slash
     if (id) {
-        history.replaceState("", "", "/"); // replace the browser's url
+        // Replace the browser's url
+        history.replaceState("", "", "/");
     }
+
     return id;
 }
 
-const Login = ({ onLogin }) => {
+export default function Login({ onLogin }) {
     const socket = useSocket();
     const [error, setError] = useState(null);
     const [name, setName] = useState("");
     const [roomId, setRoomId] = useState(getRoomIdFromUrl);
 
-    const handleResponse = data => {
-        if (typeof data === "string") {
-            setError(data);
-        } else {
+    function handleResponse(data) {
+        if (typeof data === "object") {
             onLogin(data);
-        }
-    };
-
-    const handleSubmit = e => {
-        e.preventDefault(); // don't refresh the page
-        if (roomId) {
-            socket.emit("enter", name, roomId, handleResponse);
+        } else if (data === NONEXISTENT_ERROR) {
+            setError(`The room "${roomId}" doesn't exist`);
+        } else if (data === NAME_ERROR) {
+            setError("Please choose another name");
+        } else if (data === FULL_ERROR) {
+            setError("This room is already full");
         } else {
-            socket.emit("create", name, handleResponse);
+            setError("An error occurred, please try to refresh the page");
         }
-    };
+    }
+
+   function handleSubmit(event) {
+        event.preventDefault(); // don't refresh the page
+        if (roomId) {
+            socket.emit(ENTER_ROOM, name, roomId, handleResponse);
+        } else {
+            socket.emit(CREATE_ROOM, name, handleResponse);
+        }
+    }
 
     return (
         <div>
-            {error === null
-                ? <p>Welcome to Stonks Online!</p>
-                : <p><b>Error:</b> {error}</p>
+            {error
+                ? <p><b>Error:</b> {error}.</p>
+                : <p>Welcome to Stonks Online!</p>
             }
 
             <form onSubmit={handleSubmit}>
@@ -44,14 +53,14 @@ const Login = ({ onLogin }) => {
                 <input
                     className="card w-100"
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={event => setName(event.target.value)}
                 />
 
                 <label>Room ID</label>
                 <input
                     className="card w-100"
                     value={roomId}
-                    onChange={e => setRoomId(e.target.value)}
+                    onChange={event => setRoomId(event.target.value)}
                 />
                 <small>Leave this field empty to create a new room.</small>
 
@@ -66,6 +75,4 @@ const Login = ({ onLogin }) => {
             </form>
         </div>
     );
-};
-
-export default Login;
+}
