@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
 import Capital from "./Capital.js";
-import animals from "../../common/animals.json";
+import animalTypes from "../../common/animals.json";
 import { START_AUCTION, START_OFFER } from "../../common/signals.js";
 
-export default function Turn({ players, capital, status, selfId }) {
+export default function Turn({ players, capital, animals, status, selfId }) {
     const socket = useSocket();
     const [offer, setOffer] = useState(null);
 
     const { playerId } = status;
     const player = players[playerId];
+    const animalCount = animals.reduce((a, b) => a + b, 0);
 
     if (!offer) {
         if (selfId === playerId) {
             const choices = [];
 
-            if (status.animalsLeft) {
+            if (animalCount > 0) {
                 choices.push(<button onClick={() => socket.emit(START_AUCTION)}>Sell an animal</button>);
             }
 
@@ -24,7 +25,7 @@ export default function Turn({ players, capital, status, selfId }) {
 
                     for (const [animalId, targetCount] of target.animals.entries()) {
                         const selfCount = player.animals[animalId];
-                        const animal = animals[animalId];
+                        const animal = animalTypes[animalId];
 
                         if (selfCount >= 1 && targetCount >= 1) {
                             let count;
@@ -44,7 +45,10 @@ export default function Turn({ players, capital, status, selfId }) {
 
             return (
                 <div>
-                    <p>It&apos;s your turn, what will you do?</p>
+                    <p>
+                        It&apos;s your turn, what will you do?
+                        There&apos;s {animalCount} animal{animalCount !== 1 && "s"} left to sell.
+                    </p>
                     <ul>
                         {choices.map((choice, id) =>
                             <li key={id}>{choice}</li>
@@ -57,7 +61,7 @@ export default function Turn({ players, capital, status, selfId }) {
 
     else {
         const target = players[offer.targetId];
-        const animal = animals[offer.animalId];
+        const animal = animalTypes[offer.animalId];
         return (
             <div>
                 <p>You&apos;re going to buy {offer.count === 1 ? `a ${animal.name}` : `two ${animal.namePlural}`} from <b>{target.name}</b>.</p>

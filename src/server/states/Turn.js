@@ -5,18 +5,16 @@ import { START_TURN } from "../../common/signals.js";
 
 export default class Turn extends Status {
     playerId;
-    animalsLeft;
 
     constructor(room, playerId) {
         super(room);
         this.playerId = playerId;
-        this.animalsLeft = room.animalCount > 0;
 
-        room.emit(START_TURN, this.playerId, this.animalsLeft);
+        room.emit(START_TURN, this.playerId);
     }
 
     onSell(player) {
-        if (player.id === this.playerId && this.animalsLeft) {
+        if (player.id === this.playerId && this.room.animalCount > 0) {
             this.room.status = new Auction(this.room);
         }
     }
@@ -36,8 +34,7 @@ export default class Turn extends Status {
     serialize() {
         return {
             type: "turn",
-            playerId: this.playerId,
-            animalsLeft: this.animalsLeft
+            playerId: this.playerId
         };
     }
 }

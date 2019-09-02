@@ -61,8 +61,6 @@ export default class Room {
             choice -= this.animals[++id];
         }
 
-        id = 6;
-
         if (id === rules.incomeAnimalId) {
             // To know how many times players got income, we count how many income animals are left
             const incomeCount = rules.animalCount - this.animals[rules.incomeAnimalId];
@@ -95,6 +93,7 @@ export default class Room {
         return {
             players: this.players.map(p => p.serialize()),
             capital: this.players[selfId].capital,
+            animals: this.animals,
             status: this.status.serialize(),
             roomId: this.id,
             selfId

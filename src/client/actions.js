@@ -26,8 +26,8 @@ export function removePlayer(playerId) {
     return { type: REMOVE_PLAYER, playerId };
 }
 
-export function startTurn(playerId, animalsLeft) {
-    return { type: START_TURN, playerId, animalsLeft };
+export function startTurn(playerId) {
+    return { type: START_TURN, playerId };
 }
 
 export function startAuction(animalId, timeout) {

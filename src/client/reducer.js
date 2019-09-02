@@ -1,5 +1,5 @@
 import rules from "../common/rules.json";
-import animals from "../common/animals.json";
+import animalTypes from "../common/animals.json";
 import {
     ADD_PLAYER,
     EARN_CAPITAL,
@@ -23,7 +23,7 @@ function players(state, action) {
                 ...state,
                 {
                     name: action.playerName,
-                    animals: animals.map(() => 0),
+                    animals: animalTypes.map(() => 0),
                     change: rules.initialCapital.length
                 }
             ];
@@ -76,13 +76,22 @@ function capital(state, action) {
     }
 }
 
+function animals(state, action) {
+    switch (action.type) {
+        case START_AUCTION:
+            return state.map((count, id) => id === action.animalId ? count - 1 : count);
+
+        default:
+            return state;
+    }
+}
+
 function status(state, action) {
     switch (action.type) {
         case START_TURN:
             return {
                 type: "turn",
-                playerId: action.playerId,
-                animalsLeft: action.animalsLeft
+                playerId: action.playerId
             };
 
         case START_AUCTION:
@@ -143,25 +152,18 @@ function status(state, action) {
 }
 
 export default (state, action) => {
-    switch (action.type) {
-        case ENTER_ROOM:
-            return action.data;
-
-        case REMOVE_PLAYER:
-            return {
-                ...state,
-                players: players(state.players, action),
-                selfId: state.selfId < action.playerId
-                    ? state.selfId
-                    : state.selfId - 1
-            };
-
-        default:
-            return {
-                ...state,
-                players: players(state.players, action),
-                capital: capital(state.capital, action),
-                status: status(state.status, action)
-            };
+    if (action.type === ENTER_ROOM) {
+        return action.data;
+    } else {
+        return {
+            players: players(state.players, action),
+            capital: capital(state.capital, action),
+            animals: animals(state.animals, action),
+            status: status(state.status, action),
+            roomId: state.roomId,
+            selfId: action.type === REMOVE_PLAYER && state.selfId > action.playerId
+                ? state.selfId - 1
+                : state.selfId
+        };
     }
 };
