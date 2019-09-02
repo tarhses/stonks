@@ -1,6 +1,7 @@
 import Status from "../Status.js";
 import AuctionEnd from "./AuctionEnd.js";
 import nextTurn from "./nextTurn.js";
+import rules from "../../rules.json";
 
 export default class Auction extends Status {
     playerId;
@@ -15,7 +16,7 @@ export default class Auction extends Status {
         super(room);
         this.playerId = this.bidderId = room.status.playerId;
         this.animalId = restart ? room.status.animalId : room.pickAnimal();
-        this.timeout = this.startTimeout(15);
+        this.timeout = this.startTimeout(rules.auctionTimeout);
 
         this.#bidders = new Set(room.players.keys());
         this.#bidders.delete(this.playerId); // the current player can't make bids
@@ -57,7 +58,7 @@ export default class Auction extends Status {
         if (bidder.id !== this.playerId && amount > this.amount) {
             this.bidderId = bidder.id;
             this.amount = amount;
-            this.timeout = this.startTimeout(10);
+            this.timeout = this.startTimeout(rules.bidTimeout);
             this.room.emit("bid", this.bidderId, this.amount, this.timeout);
 
             // Put the new highest bidder back in the game if he previously stopped
