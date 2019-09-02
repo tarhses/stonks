@@ -21,6 +21,7 @@ io.on("connection", socket => {
 
         const room = new Room(io);
         rooms.set(room.id, room);
+        console.log(`[${room.id}] room created`);
 
         return room.status.onEnter(socket, playerName);
     }));
@@ -42,8 +43,9 @@ io.on("connection", socket => {
         room.status.onLeave(player);
         if (room.empty) {
             rooms.delete(room.id);
+            console.log(`[${room.id}] room deleted`);
 
-            // TODO: maybe delete after a timeout ? in case a player reconnects
+            // Maybe delete after a timeout ? in case a player reconnects
             // clearTimeout(id);
             // id = setTimeout(() => {
             //     if (room.empty) {
