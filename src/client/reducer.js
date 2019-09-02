@@ -32,7 +32,7 @@ function players(state, action) {
             return state.filter((player, id) => id !== action.playerId);
 
         case START_AUCTION:
-            return animals[action.animalId].giveIncome
+            return action.animalId === rules.incomeAnimalId
                 ? state.map(player => ({ ...player, change: player.change + 1 }))
                 : state;
 
@@ -62,11 +62,6 @@ function players(state, action) {
 
 function capital(state, action) {
     switch (action.type) {
-        case START_AUCTION:
-            return action.income
-                ? [action.income, ...state]
-                : state;
-
         case EARN_CAPITAL:
             return [...state, ...action.capital].sort((a, b) => b - a);
 

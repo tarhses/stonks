@@ -15,7 +15,6 @@ export default class Room {
     players = [];
     animals = animals.map(() => rules.animalCount);
     status;
-    incomeCount = 0;
     io;
 
     constructor(io) {
@@ -62,8 +61,12 @@ export default class Room {
             choice -= this.animals[++id];
         }
 
-        if (animals[id].giveIncome) {
-            const income = rules.income[this.incomeCount++];
+        id = 6;
+
+        if (id === rules.incomeAnimalId) {
+            // To know how many times players got income, we count how many income animals are left
+            const incomeCount = rules.animalCount - this.animals[rules.incomeAnimalId];
+            const income = rules.income[incomeCount];
             for (const player of this.players) {
                 player.earn([income]);
             }

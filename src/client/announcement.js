@@ -26,7 +26,7 @@ export default function announcement(state, action) {
         case EARN_CAPITAL:
         case PAY_CAPITAL: {
             const sum = action.capital.reduce((a, b) => a + b, 0);
-            return `You ${action.type === "EARN_CAPITAL" ? "earned" : "paid"} ${sum}$`;
+            return `You ${action.type === EARN_CAPITAL ? "earned" : "paid"} ${sum}$`;
         }
     }
 }
