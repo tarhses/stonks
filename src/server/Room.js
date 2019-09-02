@@ -1,8 +1,8 @@
 import crypto from "crypto";
 import Player from "./Player.js";
 import Lobby from "./states/Lobby.js";
-import rules from "../rules.json";
-import animals from "../animals.json";
+import rules from "../common/rules.json";
+import animals from "../common/animals.json";
 
 const generateId = () =>
     // Use 18 bytes (multiple of 3) to avoid base64 padding, also use a url-friendly variant

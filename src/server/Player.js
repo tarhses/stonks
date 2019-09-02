@@ -1,5 +1,5 @@
-import rules from "../rules.json";
-import animals from "../animals.json";
+import rules from "../common/rules.json";
+import animals from "../common/animals.json";
 
 const SessionSymbol = Symbol("session");
 

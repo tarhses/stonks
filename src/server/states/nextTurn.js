@@ -1,6 +1,6 @@
 import Turn from "./Turn.js";
 import End from "./End.js";
-import rules from "../../rules.json";
+import rules from "../../common/rules.json";
 
 export default room => {
     let id = (room.status.playerId + 1) % room.playerCount;

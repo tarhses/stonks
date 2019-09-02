@@ -1,5 +1,5 @@
 import React from "react";
-import animals from "../../animals.json";
+import animals from "../../common/animals.json";
 
 const PlayerInformation = ({ player }) => {
     const ownedAnimals = Array

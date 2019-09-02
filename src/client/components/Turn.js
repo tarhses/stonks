@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
 import Capital from "./Capital.js";
-import animals from "../../animals.json";
+import animals from "../../common/animals.json";
 
 const Turn = ({ players, capital, status, selfId }) => {
     const socket = useSocket();

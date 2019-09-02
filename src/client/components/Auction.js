@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
-import animals from "../../animals.json";
+import animals from "../../common/animals.json";
 
 const Auction = ({ players, status, selfId }) => {
     const socket = useSocket();

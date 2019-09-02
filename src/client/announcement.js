@@ -1,4 +1,4 @@
-import animals from "../animals.json";
+import animals from "../common/animals.json";
 
 const announcement = (state, action) => {
     switch (action.type) {

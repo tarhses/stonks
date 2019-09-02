@@ -1,7 +1,7 @@
 import Status from "../Status.js";
 import AuctionEnd from "./AuctionEnd.js";
 import nextTurn from "./nextTurn.js";
-import rules from "../../rules.json";
+import rules from "../../common/rules.json";
 
 export default class Auction extends Status {
     playerId;

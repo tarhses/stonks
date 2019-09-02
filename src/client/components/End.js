@@ -1,6 +1,6 @@
 import React from "react";
-import rules from "../../rules.json";
-import animals from "../../animals.json";
+import rules from "../../common/rules.json";
+import animals from "../../common/animals.json";
 
 const End = ({ players }) => {
     const results = players.map((player, playerId) => {
