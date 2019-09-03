@@ -79,10 +79,11 @@ export default function App() {
             socket.on(END_GAME, on(endGame));
 
             socket.on("disconnect", () => {
-                setMessages(["You've been disconnected from the server...", ...messages]);
+                setMessages(["You've been disconnected from the server.", ...messages]);
             });
 
             socket.on("reconnect", () => {
+                setMessages(["Attempting to reconnect.", ...messages]);
                 socket.emit(JOIN_ROOM, state.players[state.selfId].name, state.roomId, data => {
                     if (typeof data === "object") {
                         dispatch(joinRoom(data));
