@@ -35,5 +35,7 @@ export default class Status {
 
     onBuy() {}
 
+    onOffer() {}
+
     onCounter() {}
 }

@@ -6,10 +6,11 @@ import Player from "./Player.js";
 import Room from "./Room.js";
 import { withResponse, withSession } from "./decorators.js";
 import {
-    COUNTER_OFFER,
     CREATE_ROOM,
     JOIN_ROOM,
     MAKE_BID,
+    MAKE_COUNTEROFFER,
+    MAKE_OFFER,
     NONEXISTENT_ERROR,
     RECREATE_ROOM,
     SELL_ANIMAL,
@@ -70,7 +71,8 @@ io.on("connect", socket => {
     socket.on(MAKE_BID, withSession(socket, (room, player, ...args) => room.status.onBid(player, ...args)));
     socket.on(STOP_BID, withSession(socket, (room, player) => room.status.onStop(player)));
     socket.on(SELL_ANIMAL, withSession(socket, (room, player, ...args) => room.status.onDeal(player, ...args)));
-    socket.on(COUNTER_OFFER, withSession(socket, (room, player, ...args) => room.status.onCounter(player, ...args)));
+    socket.on(MAKE_OFFER, withSession(socket, (room, player, ...args) => room.status.onOffer(player, ...args)));
+    socket.on(MAKE_COUNTEROFFER, withSession(socket, (room, player, ...args) => room.status.onCounter(player, ...args)));
 });
 
 // Start the http server

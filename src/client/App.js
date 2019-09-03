@@ -12,11 +12,13 @@ import {
     END_GAME,
     JOIN_ROOM,
     MAKE_BID,
+    MAKE_OFFER,
     NONEXISTENT_ERROR,
     PAY_CAPITAL,
     RECREATE_ROOM,
     REMOVE_PLAYER,
     RESTART_AUCTION,
+    RESTART_OFFER,
     SELL_ANIMAL,
     START_AUCTION,
     START_OFFER,
@@ -29,9 +31,11 @@ import {
     endGame,
     joinRoom,
     makeBid,
+    makeOffer,
     payCapital,
     removePlayer,
     restartAuction,
+    restartOffer,
     sellAnimal,
     startAuction,
     startOffer,
@@ -64,13 +68,15 @@ export default function App() {
             socket.on(START_TURN, on(startTurn));
             socket.on(START_AUCTION, on(startAuction));
             socket.on(RESTART_AUCTION, on(restartAuction));
-            socket.on(START_OFFER, on(startOffer));
             socket.on(MAKE_BID, on(makeBid));
             socket.on(END_AUCTION, on(endAuction));
+            socket.on(START_OFFER, on(startOffer));
+            socket.on(RESTART_OFFER, on(restartOffer));
+            socket.on(MAKE_OFFER, on(makeOffer));
             socket.on(SELL_ANIMAL, on(sellAnimal));
             socket.on(EARN_CAPITAL, on(earnCapital));
-            socket.on(PAY_CAPITAL, on(payCapital()));
-            socket.on(END_GAME, on(endGame()));
+            socket.on(PAY_CAPITAL, on(payCapital));
+            socket.on(END_GAME, on(endGame));
 
             socket.on("disconnect", () => {
                 setMessages(["You've been disconnected from the server...", ...messages]);

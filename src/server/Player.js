@@ -117,6 +117,13 @@ export default class Player {
         }
     }
 
+    broadcast(...args) {
+        if (this.socket) {
+            console.log(`[${this.room.id}] ${JSON.stringify(args).slice(1, -1)}`);
+            this.socket.broadcast.emit(...args);
+        }
+    }
+
     serialize() {
         return {
             name: this.name,

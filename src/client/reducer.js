@@ -7,9 +7,11 @@ import {
     END_GAME,
     JOIN_ROOM,
     MAKE_BID,
+    MAKE_OFFER,
     PAY_CAPITAL,
     REMOVE_PLAYER,
     RESTART_AUCTION,
+    RESTART_OFFER,
     SELL_ANIMAL,
     START_AUCTION,
     START_OFFER,
@@ -138,7 +140,21 @@ function status(state, action, selfId) {
                 targetId: action.targetId,
                 animalId: action.animalId,
                 count: action.count,
-                change: action.change
+                offer: null,
+                twice: false
+            };
+
+        case RESTART_OFFER:
+            return {
+                ...state,
+                offer: null,
+                twice: true
+            };
+
+        case MAKE_OFFER:
+            return {
+                ...state,
+                offer: action.offer
             };
 
         case END_GAME:

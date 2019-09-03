@@ -2,40 +2,60 @@ import React from "react";
 import { useSocket } from "../hooks.js";
 import Capital from "./Capital.js";
 import animals from "../../common/animals.json";
-import { COUNTER_OFFER } from "../../common/signals.js";
+import { MAKE_COUNTEROFFER, MAKE_OFFER } from "../../common/signals.js";
 
 export default function Offer({ players, capital, status, selfId }) {
     const socket = useSocket();
 
-    const { playerId, targetId, animalId, change } = status;
+    const { playerId, targetId, animalId, count, offer } = status;
     const player = players[playerId];
     const target = players[targetId];
     const animal = animals[animalId];
 
-    const selfCount = player.animals[animalId];
-    const targetCount = target.animals[animalId];
+    const what = count === 1
+        ? `a ${animal.name}`
+        : `two ${animal.namePlural}`;
 
-    let count;
-    if (selfCount === 2 && targetCount === 2) {
-        count = 2;
-    } else {
-        count = 1;
-    }
+    const who = selfId === targetId
+        ? "you"
+        : <b>{target.name}</b>;
 
-    const what = count === 1 ? `a ${animal.name}` : `two ${animal.namePlural}`;
-
-    if (selfId === targetId) {
+    if (selfId === playerId) {
         return (
             <div>
-                <p><b>{player.name}</b> made an offer to buy {what} from you (change: {change}).</p>
-                <Capital capital={capital} offer onSelected={list => socket.emit(COUNTER_OFFER, list)} />
+                <p>
+                    You {offer === null
+                        ? "want"
+                        : `made a ${offer.reduce((a, b) => a + b, 0)}$ offer`
+                    } to buy {what} from {who}.
+                </p>
+
+                {!offer &&
+                    <Capital capital={capital} offer onSelected={list => socket.emit(MAKE_OFFER, list)} />
+                }
+            </div>
+        );
+    }
+
+    if (offer === null) {
+        return (
+            <div>
+                <p>
+                    <b>{player.name}</b> wants to buy {what} from {who}.
+                </p>
             </div>
         );
     }
 
     return (
         <div>
-            <p><b>{player.name}</b> made an offer to <b>{target.name}</b> to buy {what} (change: {change}).</p>
+            <p>
+                <b>{player.name}</b> made an offer to buy {what} from {who} (change: {offer}).
+            </p>
+
+            {selfId === targetId &&
+                <Capital capital={capital} offer onSelected={list => socket.emit(MAKE_COUNTEROFFER, list)} />
+            }
         </div>
     );
 }

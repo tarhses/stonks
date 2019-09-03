@@ -19,15 +19,10 @@ export default class Turn extends Status {
         }
     }
 
-    onBuy(player, targetId, animalId, capital) {
+    onBuy(player, targetId, animalId) {
         const target = this.room.players[targetId];
-        if (player.id === this.playerId &&
-            player.id !== targetId &&
-            player.animals[animalId] > 0 &&
-            target.animals[animalId] > 0 &&
-            player.has(capital)) {
-
-            this.room.status = new Offer(this.room, targetId, animalId, capital);
+        if (player.id === this.playerId && player.id !== targetId && player.animals[animalId] > 0 && target.animals[animalId] > 0) {
+            this.room.status = new Offer(this.room, targetId, animalId);
         }
     }
 

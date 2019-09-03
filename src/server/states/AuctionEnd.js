@@ -22,11 +22,11 @@ export default class AuctionEnd extends Status {
     sell(seller, buyer) {
         const payment = buyer.findMinimalPayment(this.amount);
         if (payment) {
-            buyer.pay(payment);
-            seller.earn(payment);
-
             buyer.animals[this.animalId]++;
             this.room.emit(SELL_ANIMAL, seller.id, buyer.id, this.animalId, 0, payment.length);
+
+            buyer.pay(payment);
+            seller.earn(payment);
 
             this.room.status = nextTurn(this.room);
         } else {

@@ -5,9 +5,11 @@ import {
     END_GAME,
     JOIN_ROOM,
     MAKE_BID,
+    MAKE_OFFER,
     PAY_CAPITAL,
     REMOVE_PLAYER,
     RESTART_AUCTION,
+    RESTART_OFFER,
     SELL_ANIMAL,
     START_AUCTION,
     START_OFFER,
@@ -51,8 +53,16 @@ export function endAuction() {
     return { type: END_AUCTION };
 }
 
-export function startOffer(targetId, animalId, count, change) {
-    return { type: START_OFFER, targetId, animalId, count, change };
+export function startOffer(targetId, animalId, count) {
+    return { type: START_OFFER, targetId, animalId, count };
+}
+
+export function restartOffer() {
+    return { type: RESTART_OFFER };
+}
+
+export function makeOffer(offer) {
+    return { type: MAKE_OFFER, offer };
 }
 
 export function sellAnimal(sellerId, buyerId, animalId, count, change) {
