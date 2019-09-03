@@ -3,6 +3,16 @@ import Player from "./Player.js";
 import Lobby from "./states/Lobby.js";
 import rules from "../common/rules.json";
 import animals from "../common/animals.json";
+import {
+    MAKE_BID,
+    MAKE_COUNTEROFFER,
+    MAKE_OFFER,
+    SELL_ANIMAL,
+    START_AUCTION,
+    START_OFFER,
+    START_TURN,
+    STOP_BID
+} from "../common/signals.js";
 
 function generateId() {
     // Use 18 bytes (multiple of 3) to avoid base64 padding, also use a url-friendly variant
@@ -82,6 +92,31 @@ export default class Room {
         }
 
         return true;
+    }
+
+    join(socket, playerName) {
+        return this.status.onEnter(socket, playerName);
+    }
+
+    leave(player) {
+        this.status.onLeave(player);
+    }
+
+    do(signal, args) {
+        let action;
+        switch (signal) {
+            case START_TURN: action = this.status.onStart; break;
+            case START_AUCTION: action = this.status.onSell; break;
+            case START_OFFER: action = this.status.onBuy; break;
+            case MAKE_BID: action = this.status.onBid; break;
+            case STOP_BID: action = this.status.onStop; break;
+            case SELL_ANIMAL: action = this.status.onDeal; break;
+            case MAKE_OFFER: action = this.status.onOffer; break;
+            case MAKE_COUNTEROFFER: action = this.status.onCounter; break;
+            default: return;
+        }
+
+        action.apply(this.status, args);
     }
 
     emit(...args) {
