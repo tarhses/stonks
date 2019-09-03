@@ -7,15 +7,15 @@ export default class Offer extends Status {
     targetId;
     animalId;
     count;
-    capital;
+    offer;
     #twice = false;
 
-    constructor(room, targetId, animalId, capital) {
+    constructor(room, targetId, animalId, offer) {
         super(room);
         this.playerId = room.status.playerId;
         this.targetId = targetId;
         this.animalId = animalId;
-        this.capital = capital;
+        this.offer = offer;
 
         const player = room.players[this.playerId];
         const target = room.players[targetId];
@@ -25,14 +25,14 @@ export default class Offer extends Status {
             this.count = 1;
         }
 
-        this.room.emit(START_OFFER, targetId, animalId, this.count, capital.length);
+        this.room.emit(START_OFFER, targetId, animalId, this.count, offer.length);
     }
 
-    onCounter(target, capital) {
-        if (target.id === this.targetId && target.has(capital)) {
+    onCounter(target, offer) {
+        if (target.id === this.targetId && target.has(offer)) {
             const player = this.room.players[this.playerId];
-            const playerSum = this.capital.reduce((a, b) => a + b, 0);
-            const targetSum = capital.reduce((a, b) => a + b, 0);
+            const playerSum = this.offer.reduce((a, b) => a + b, 0);
+            const targetSum = offer.reduce((a, b) => a + b, 0);
 
             // In case of equality, restart the offer (but only once, else the offering player wins)
             if (!this.#twice && playerSum === targetSum) {
@@ -41,21 +41,21 @@ export default class Offer extends Status {
             }
 
             // Exchange capitals
-            player.pay(this.capital);
-            target.pay(capital);
-            player.earn(capital);
-            target.earn(this.capital);
+            player.pay(this.offer);
+            target.pay(offer);
+            player.earn(offer);
+            target.earn(this.offer);
 
             // The player who made the biggest offer gets the animals
             let buyer, seller, change;
             if (playerSum >= targetSum) {
                 buyer = player;
                 seller = target;
-                change = this.capital.length - capital.length;
+                change = this.offer.length - offer.length;
             } else {
                 buyer = target;
                 seller = player;
-                change = capital.length - this.capital.length;
+                change = offer.length - this.offer.length;
             }
 
             buyer.animals[this.animalId] += this.count;
@@ -73,7 +73,7 @@ export default class Offer extends Status {
             targetId: this.targetId,
             animalId: this.animalId,
             count: this.count,
-            change: this.capital.length
+            change: this.offer.length
         };
     }
 }
