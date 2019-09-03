@@ -27,8 +27,8 @@ export default class Lobby extends Status {
         this.room.removePlayer(player.id);
     }
 
-    onStart() {
-        if (this.room.playerCount >= 3) {
+    onStart(player) {
+        if (player.id === 0 && this.room.playerCount >= 3) {
             this.room.status = startGame(this);
         }
     }

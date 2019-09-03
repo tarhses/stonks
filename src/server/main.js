@@ -80,7 +80,7 @@ io.on("connect", socket => {
         }
     });
 
-    socket.on(START_TURN, withSession(socket, room => room.status.onStart()));
+    socket.on(START_TURN, withSession(socket, (room, player) => room.status.onStart(player)));
     socket.on(START_AUCTION, withSession(socket, (room, player) => room.status.onSell(player)));
     socket.on(START_OFFER, withSession(socket, (room, player, ...args) => room.status.onBuy(player, ...args)));
     socket.on(MAKE_BID, withSession(socket, (room, player, ...args) => room.status.onBid(player, ...args)));

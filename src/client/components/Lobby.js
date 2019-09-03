@@ -28,7 +28,7 @@ export default function Lobby({ players, roomId, selfId }) {
             <button
                 className="btn primary w-100"
                 onClick={() => socket.emit(START_TURN)}
-                disabled={remaining > 0}
+                disabled={selfId !== 0 || remaining > 0}
             >
                 Start
             </button>
