@@ -58,7 +58,7 @@ io.on("connect", socket => {
 
     socket.on("disconnect", withSession(socket, (room, player) => {
         room.status.onLeave(player);
-        if (room.players.some(p => p.connected)) {
+        if (room.players.every(p => !p.connected)) {
             rooms.delete(room.id);
             console.log(`[${room.id}] room deleted`);
         }
