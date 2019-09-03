@@ -85,13 +85,7 @@ export default class Room {
     }
 
     get empty() {
-        for (const player of this.players) {
-            if (player.connected) {
-                return false;
-            }
-        }
-
-        return true;
+        return this.players.some(player => player.connected);
     }
 
     join(socket, playerName) {
