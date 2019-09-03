@@ -70,10 +70,6 @@ export default class Room {
         return id;
     }
 
-    get empty() {
-        return this.players.some(player => player.connected);
-    }
-
     emit(...args) {
         console.log(`[${this.id}] ${JSON.stringify(args).slice(1, -1)}`);
         this.io.to(this.id).emit(...args);
