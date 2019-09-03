@@ -1,4 +1,4 @@
-> **WIP: This game, even if currently playable, is still a work in progress :smile:. Please understand that it requires some more testing, refactoring, polishing and documentation.**
+> **WIP: This game, while currently playable, is still a work in progress. Please understand that it requires some more testing, refactoring, polishing and documentation.**
 
 # :moneybag: Stonks Online
 
@@ -12,7 +12,7 @@
 
 ### Playing
 
-> TODO
+A public server is currently running on [Heroku](https://stonks-online.herokuapp.com/) : you're free to test it, some feedback is welcome as well :smile:.
 
 ### Installation
 
