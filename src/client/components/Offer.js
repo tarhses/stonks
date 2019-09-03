@@ -1,8 +1,8 @@
 import React from "react";
 import { useSocket } from "../hooks.js";
 import Capital from "./Capital.js";
-import animals from "../../common/animals.json";
 import { MAKE_COUNTEROFFER, MAKE_OFFER } from "../../common/signals.js";
+import rules from "../../common/rules.json";
 
 export default function Offer({ players, capital, status, selfId }) {
     const socket = useSocket();
@@ -10,7 +10,7 @@ export default function Offer({ players, capital, status, selfId }) {
     const { playerId, targetId, animalId, count, offer } = status;
     const player = players[playerId];
     const target = players[targetId];
-    const animal = animals[animalId];
+    const animal = rules.animals[animalId];
 
     const what = count === 1
         ? `a ${animal.name}`

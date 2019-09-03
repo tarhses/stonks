@@ -1,5 +1,4 @@
 import rules from "../common/rules.json";
-import animalTypes from "../common/animals.json";
 import {
     ADD_PLAYER,
     EARN_CAPITAL,
@@ -27,7 +26,7 @@ function players(state, action) {
                 ...state,
                 {
                     name: action.playerName,
-                    animals: animalTypes.map(() => 0),
+                    animals: rules.animals.map(() => 0),
                     change: rules.initialCapital.length
                 }
             ];

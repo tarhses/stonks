@@ -1,11 +1,10 @@
 import React from "react";
 import rules from "../../common/rules.json";
-import animals from "../../common/animals.json";
 
 export default function End({ players }) {
     const results = players.map((player, playerId) => {
         const scores = player.animals
-            .map((count, animalId) => count === rules.animalCount ? animals[animalId].score : 0)
+            .map((count, animalId) => count === rules.animalCount ? rules.animals[animalId].score : 0)
             .filter(score => score > 0);
         return [playerId, scores.reduce((a, b) => a + b, 0) * scores.length];
     }).sort(([, a], [, b]) => b - a);

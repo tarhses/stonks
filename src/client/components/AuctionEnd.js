@@ -1,7 +1,7 @@
 import React from "react";
 import { useSocket } from "../hooks.js";
-import animals from "../../common/animals.json";
 import { SELL_ANIMAL } from "../../common/signals.js";
+import rules from "../../common/rules.json";
 
 export default function AuctionEnd({ players, capital, status, selfId }) {
     const socket = useSocket();
@@ -9,7 +9,7 @@ export default function AuctionEnd({ players, capital, status, selfId }) {
     const { playerId, bidderId, animalId, amount } = status;
     const player = players[playerId];
     const bidder = players[bidderId];
-    const animal = animals[animalId];
+    const animal = rules.animals[animalId];
     const sum = capital.reduce((a, b) => a + b, 0);
 
     return (

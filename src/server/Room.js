@@ -7,7 +7,6 @@ import AuctionEnd from "./states/AuctionEnd.js";
 import Offer from "./states/Offer.js";
 import End from "./states/End.js";
 import rules from "../common/rules.json";
-import animalTypes from "../common/animals.json";
 
 function generateId() {
     // Use 18 bytes (multiple of 3) to avoid base64 padding, also use a url-friendly variant
@@ -32,7 +31,7 @@ function deserializeStatus(room, data) {
 export default class Room {
     id;
     players = [];
-    animals = animalTypes.map(() => rules.animalCount);
+    animals = rules.animals.map(() => rules.animalCount);
     status;
     io;
 

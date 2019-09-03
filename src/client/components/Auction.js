@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
-import animals from "../../common/animals.json";
-import { MAKE_BID, STOP_BID } from "../../common/signals.js";
 import { stopBid } from "../actions.js";
+import rules from "../../common/rules.json";
+import { MAKE_BID, STOP_BID } from "../../common/signals.js";
 
 export default function Auction({ players, status, selfId, dispatch }) {
     const socket = useSocket();
@@ -11,7 +11,7 @@ export default function Auction({ players, status, selfId, dispatch }) {
     const { playerId, bidderId, animalId, amount, bidding } = status;
     const player = players[playerId];
     const bidder = players[bidderId];
-    const animal = animals[animalId];
+    const animal = rules.animals[animalId];
 
     function handleBid(event) {
         event.preventDefault(); // don't refresh the page

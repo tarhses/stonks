@@ -1,5 +1,5 @@
 import React from "react";
-import animals from "../../common/animals.json";
+import rules from "../../common/rules.json";
 
 export default function PlayerInformation({ player }) {
     const ownedAnimals = Array
@@ -15,7 +15,7 @@ export default function PlayerInformation({ player }) {
                 {ownedAnimals.length === 0
                     ? <div><i>None</i></div>
                     : ownedAnimals.map(([id, count]) => {
-                        const animal = animals[id];
+                        const animal = rules.animals[id];
                         return (
                             <div key={id}>
                                 {count} {count === 1

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSocket } from "../hooks.js";
-import animalTypes from "../../common/animals.json";
 import { START_AUCTION, START_OFFER } from "../../common/signals.js";
+import rules from "../../common/rules.json";
 
 export default function Turn({ players, animals, status, selfId }) {
     const socket = useSocket();
@@ -26,7 +26,7 @@ export default function Turn({ players, animals, status, selfId }) {
 
                 for (const [animalId, targetCount] of target.animals.entries()) {
                     const selfCount = player.animals[animalId];
-                    const animal = animalTypes[animalId];
+                    const animal = rules.animals[animalId];
 
                     if (selfCount >= 1 && targetCount >= 1) {
                         choices.push(<button onClick={() => socket.emit(START_OFFER, targetId, animalId)}>

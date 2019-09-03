@@ -1,4 +1,4 @@
-import animals from "../common/animals.json";
+import rules from "../common/rules.json";
 import {
     EARN_CAPITAL,
     JOIN_ROOM,
@@ -22,7 +22,7 @@ export default function announcement(state, action) {
         case SELL_ANIMAL: {
             const seller = state.players[action.sellerId].name;
             const buyer = state.players[action.buyerId].name;
-            const animal = animals[action.animalId];
+            const animal = rules.animals[action.animalId];
             if (action.count > 0) {
                 return `${buyer} bought ${action.count} ${action.count === 1 ? animal.name : animal.namePlural} from ${seller}.`;
             } else if (action.sellerId === action.buyerId) {

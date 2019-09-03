@@ -1,5 +1,4 @@
 import rules from "../common/rules.json";
-import animalTypes from "../common/animals.json";
 import { EARN_CAPITAL, PAY_CAPITAL } from "../common/signals.js";
 
 const SessionSymbol = Symbol("session");
@@ -8,7 +7,7 @@ export default class Player {
     room;
     id;
     name;
-    animals = animalTypes.map(() => 0);
+    animals = rules.animals.map(() => 0);
     capital = [...rules.initialCapital];
     socket = null;
 
