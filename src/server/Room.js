@@ -1,8 +1,13 @@
 import crypto from "crypto";
 import Player from "./Player.js";
 import Lobby from "./states/Lobby.js";
+import Turn from "./states/Turn.js";
+import Auction from "./states/Auction.js";
+import AuctionEnd from "./states/AuctionEnd.js";
+import Offer from "./states/Offer.js";
+import End from "./states/End.js";
 import rules from "../common/rules.json";
-import animals from "../common/animals.json";
+import animalTypes from "../common/animals.json";
 
 function generateId() {
     // Use 18 bytes (multiple of 3) to avoid base64 padding, also use a url-friendly variant
@@ -10,10 +15,24 @@ function generateId() {
     return crypto.randomBytes(18).toString("base64").replace(/\+/g, "-").replace(/\//g, "_");
 }
 
+function deserializeStatus(room, data) {
+    if (!data) {
+        return Lobby.deserialize(room, data);
+    }
+
+    switch (data.type) {
+        case "turn":        return Turn.deserialize(room, data);
+        case "auction":     return Auction.deserialize(room, data);
+        case "auctionEnd":  return AuctionEnd.deserialize(room, data);
+        case "offer":       return Offer.deserialize(room, data);
+        case "end":         return End.deserialize(room, data);
+    }
+}
+
 export default class Room {
     id;
     players = [];
-    animals = animals.map(() => rules.animalCount);
+    animals = animalTypes.map(() => rules.animalCount);
     status;
     io;
 
@@ -84,5 +103,14 @@ export default class Room {
             roomId: this.id,
             selfId
         };
+    }
+
+    static deserialize(io, { players, animals, status }) {
+        const room = new Room(io);
+        room.players = players.map((player, id) => Player.deserialize(room, id, player));
+        room.animals = animals;
+        room.status = deserializeStatus(room, status);
+
+        return room;
     }
 }

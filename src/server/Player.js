@@ -1,5 +1,5 @@
 import rules from "../common/rules.json";
-import animals from "../common/animals.json";
+import animalTypes from "../common/animals.json";
 import { EARN_CAPITAL, PAY_CAPITAL } from "../common/signals.js";
 
 const SessionSymbol = Symbol("session");
@@ -8,7 +8,7 @@ export default class Player {
     room;
     id;
     name;
-    animals = animals.map(() => 0);
+    animals = animalTypes.map(() => 0);
     capital = [...rules.initialCapital];
     socket = null;
 
@@ -130,5 +130,17 @@ export default class Player {
             animals: this.animals,
             change: this.capital.length
         };
+    }
+
+    static deserialize(room, id, { name, animals, capital, socket }) {
+        const player = new Player(room, id, name);
+        player.animals = animals;
+        player.capital = capital;
+
+        if (socket) {
+            player.connect(socket);
+        }
+
+        return player;
     }
 }

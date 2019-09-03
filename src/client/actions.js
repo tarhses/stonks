@@ -7,6 +7,7 @@ import {
     MAKE_BID,
     MAKE_OFFER,
     PAY_CAPITAL,
+    RECREATE_ROOM,
     REMOVE_PLAYER,
     RESTART_AUCTION,
     RESTART_OFFER,
@@ -19,6 +20,10 @@ import {
 
 export function joinRoom(data) {
     return { type: JOIN_ROOM, data };
+}
+
+export function recreateRoom(roomId) {
+    return { type: RECREATE_ROOM, roomId };
 }
 
 export function addPlayer(playerName) {

@@ -1,8 +1,19 @@
 import animals from "../common/animals.json";
-import { EARN_CAPITAL, PAY_CAPITAL, RESTART_AUCTION, SELL_ANIMAL } from "../common/signals.js";
+import {
+    EARN_CAPITAL,
+    JOIN_ROOM,
+    PAY_CAPITAL,
+    RECREATE_ROOM,
+    RESTART_AUCTION,
+    SELL_ANIMAL
+} from "../common/signals.js";
 
 export default function announcement(state, action) {
     switch (action.type) {
+        case JOIN_ROOM:
+        case RECREATE_ROOM:
+            return "Successfully reconnected!";
+
         case RESTART_AUCTION: {
             const bidder = state.players[state.status.bidderId].name;
             return `${bidder} can't afford ${state.status.amount}$, his capital is: ${action.capital.join("$, ")}$.`;

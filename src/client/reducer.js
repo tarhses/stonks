@@ -9,6 +9,7 @@ import {
     MAKE_BID,
     MAKE_OFFER,
     PAY_CAPITAL,
+    RECREATE_ROOM,
     REMOVE_PLAYER,
     RESTART_AUCTION,
     RESTART_OFFER,
@@ -167,6 +168,16 @@ function status(state, action, selfId) {
     }
 }
 
+function roomId(state, action) {
+    switch (action.type) {
+        case RECREATE_ROOM:
+            return action.roomId;
+
+        default:
+            return state;
+    }
+}
+
 function selfId(state, action) {
     switch (action.type) {
         case REMOVE_PLAYER:
@@ -186,7 +197,7 @@ export default (state, action) => {
             capital: capital(state.capital, action),
             animals: animals(state.animals, action),
             status: status(state.status, action, state.selfId), // TODO: passing selfId here is kind of a hack :p
-            roomId: state.roomId,
+            roomId: roomId(state.roomId, action),
             selfId: selfId(state.selfId, action)
         };
     }

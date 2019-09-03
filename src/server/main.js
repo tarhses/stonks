@@ -4,6 +4,7 @@ import Express from "express";
 import SocketServer from "socket.io";
 import Player from "./Player.js";
 import Room from "./Room.js";
+import RecoveryRoom from "./RecoveryRoom.js";
 import { withResponse, withSession } from "./decorators.js";
 import {
     CREATE_ROOM,
@@ -24,7 +25,9 @@ import {
 const app = new Express();
 const server = http.createServer(app);
 const io = new SocketServer(server, { serveClient: false }); // don't serve the client, webpack will
+
 const rooms = new Map();
+const recoveries = new Map();
 
 io.on("connect", socket => {
     // Connection and disconnection
@@ -62,7 +65,19 @@ io.on("connect", socket => {
     }));
 
     socket.on(RECREATE_ROOM, state => {
-        console.log(state);
+        const id = state.roomId;
+        if (recoveries.has(id)) {
+            const recovery = recoveries.get(id);
+            if (recovery.connect(socket, state)) {
+                const room = recovery.recreate(io);
+                rooms.set(room.id, room);
+                room.emit(RECREATE_ROOM, room.id);
+                recoveries.delete(id);
+            }
+        } else {
+            recoveries.set(id, new RecoveryRoom(socket, state));
+            setTimeout(() => recoveries.delete(id), 60000);
+        }
     });
 
     socket.on(START_TURN, withSession(socket, room => room.status.onStart()));

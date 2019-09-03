@@ -33,6 +33,7 @@ import {
     makeBid,
     makeOffer,
     payCapital,
+    recreateRoom,
     removePlayer,
     restartAuction,
     restartOffer,
@@ -77,6 +78,7 @@ export default function App() {
             socket.on(EARN_CAPITAL, on(earnCapital));
             socket.on(PAY_CAPITAL, on(payCapital));
             socket.on(END_GAME, on(endGame));
+            socket.on(RECREATE_ROOM, on(recreateRoom));
 
             socket.on("disconnect", () => {
                 setMessages(["You've been disconnected from the server.", ...messages]);

@@ -20,7 +20,7 @@ export default class Auction extends Status {
         this.animalId = animalId;
 
         this.bidders = new Set(room.players.keys());
-        this.bidders.delete(this.playerId); // the selling player can't make bids
+        this.bidders.delete(playerId); // the selling player can't make bids
 
         this.timeout = this.startTimeout(rules.auctionTimeout);
     }
