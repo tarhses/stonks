@@ -68,7 +68,7 @@ export default function Login({ onLogin }) {
                 <button
                     className="btn primary w-100"
                     type="submit"
-                    disabled={/\s/.test(name)}
+                    disabled={/\s|^$/.test(name)}
                 >
                     {roomId ? "Join" : "Create"} room
                 </button>

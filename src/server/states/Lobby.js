@@ -10,7 +10,7 @@ export default class Lobby extends Status {
     onEnter(socket, playerName) {
         if (this.room.playerCount === 5) {
             return FULL_ERROR;
-        } else if (this.room.findPlayer(playerName) || /\s/.test(playerName)) {
+        } else if (this.room.findPlayer(playerName) || /\s|^$/.test(playerName)) {
             return NAME_ERROR;
         }
 
