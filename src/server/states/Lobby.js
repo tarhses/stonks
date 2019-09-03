@@ -36,4 +36,8 @@ export default class Lobby extends Status {
     serialize() {
         return null;
     }
+
+    static deserialize(room) {
+        return new Lobby(room);
+    }
 }

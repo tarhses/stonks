@@ -16,4 +16,8 @@ export default class End extends Status {
             type: "end"
         };
     }
+
+    static deserialize(room) {
+        return new End(room);
+    }
 }

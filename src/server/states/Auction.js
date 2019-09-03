@@ -83,4 +83,14 @@ export default class Auction extends Status {
             timeout: this.timeout
         };
     }
+
+    static deserialize(room, { playerId, bidderId, animalId, amount, bidders }) {
+        const status = new Auction(room, playerId, animalId);
+        status.bidderId = bidderId;
+        status.amount = amount;
+        status.bidders = new Set(bidders);
+
+        // timeout is intentionally restarted (TODO: it causes client desync though)
+        return status;
+    }
 }

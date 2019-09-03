@@ -29,4 +29,8 @@ export default class Turn extends Status {
             playerId: this.playerId
         };
     }
+
+    static deserialize(room, { playerId }) {
+        return new Turn(room, playerId);
+    }
 }

@@ -53,4 +53,8 @@ export default class AuctionEnd extends Status {
             amount: this.amount
         };
     }
+
+    static deserialize(room, { playerId, bidderId, animalId, amount }) {
+        return new AuctionEnd(room, playerId, bidderId, animalId, amount);
+    }
 }

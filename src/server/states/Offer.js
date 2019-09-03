@@ -10,13 +10,13 @@ export default class Offer extends Status {
     offer = null;
     twice = false;
 
-    constructor(room, targetId, animalId) {
+    constructor(room, playerId, targetId, animalId) {
         super(room);
-        this.playerId = room.status.playerId;
+        this.playerId = playerId;
         this.targetId = targetId;
         this.animalId = animalId;
 
-        const player = room.players[this.playerId];
+        const player = room.players[playerId];
         const target = room.players[targetId];
         if (player.animals[animalId] === 2 && target.animals[animalId] === 2) {
             this.count = 2;
@@ -84,5 +84,13 @@ export default class Offer extends Status {
             offer: this.offer && selfId !== this.playerId ? this.offer.length : this.offer,
             twice: this.twice
         };
+    }
+
+    static deserialize(room, { playerId, targetId, animalId, offer, twice }) {
+        const status = new Offer(room, playerId, targetId, animalId);
+        status.offer = offer;
+        status.twice = twice;
+
+        return status;
     }
 }
