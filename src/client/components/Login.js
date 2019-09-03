@@ -73,6 +73,10 @@ export default function Login({ onLogin }) {
                     {roomId ? "Join" : "Create"} room
                 </button>
             </form>
+
+            <div style={{ "float": "right" }}>
+                <p><small><code>Version 1.1.0 - (c) 2019, tarhses</code></small></p>
+            </div>
         </div>
     );
 }
