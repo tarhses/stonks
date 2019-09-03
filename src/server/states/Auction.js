@@ -1,33 +1,28 @@
 import Status from "../Status.js";
-import AuctionEnd from "./AuctionEnd.js";
-import nextTurn from "./nextTurn.js";
+import nextTurn from "./transitions/nextTurn.js";
+import endAuction from "./transitions/endAuction.js";
 import rules from "../../common/rules.json";
-import { MAKE_BID, RESTART_AUCTION, SELL_ANIMAL, START_AUCTION } from "../../common/signals.js";
+import { MAKE_BID, SELL_ANIMAL } from "../../common/signals.js";
 
 export default class Auction extends Status {
     playerId;
     bidderId;
     animalId;
-    timeout;
     amount = 0;
     bidders;
+    timeout;
     #timeoutId;
 
-    constructor(room, restart) {
+    constructor(room, playerId, animalId) {
         super(room);
-        this.playerId = this.bidderId = room.status.playerId;
-        this.animalId = restart ? room.status.animalId : room.pickAnimal();
-        this.timeout = this.startTimeout(rules.auctionTimeout);
+        this.playerId = playerId;
+        this.bidderId = playerId;
+        this.animalId = animalId;
 
         this.bidders = new Set(room.players.keys());
         this.bidders.delete(this.playerId); // the selling player can't make bids
 
-        if (restart) {
-            // A player couldn't afford a bid, we'll reveal his capital and restart the auction
-            room.emit(RESTART_AUCTION, room.players[room.status.bidderId].capital, this.timeout);
-        } else {
-            room.emit(START_AUCTION, this.animalId, this.timeout);
-        }
+        this.timeout = this.startTimeout(rules.auctionTimeout);
     }
 
     stopAuction() {
@@ -35,15 +30,14 @@ export default class Auction extends Status {
         clearTimeout(this.#timeoutId);
 
         if (this.playerId !== this.bidderId) {
-            this.room.status = new AuctionEnd(this.room);
+            this.room.status = endAuction(this);
         } else {
             // Nobody made a bid, the player gets the animal for free
             const player = this.room.players[this.playerId];
             player.animals[this.animalId]++;
             this.room.emit(SELL_ANIMAL, player.id, player.id, this.animalId, 0, 0); // sell to himself
 
-            // There's no need to go to the AuctionEnd state
-            this.room.status = nextTurn(this.room);
+            this.room.status = nextTurn(this);
         }
     }
 

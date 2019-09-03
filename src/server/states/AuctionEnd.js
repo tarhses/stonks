@@ -1,7 +1,7 @@
 import Status from "../Status.js";
-import Auction from "./Auction.js";
-import nextTurn from "./nextTurn.js";
-import { END_AUCTION, SELL_ANIMAL } from "../../common/signals.js";
+import nextTurn from "./transitions/nextTurn.js";
+import restartAuction from "./transitions/restartAuction.js";
+import { SELL_ANIMAL } from "../../common/signals.js";
 
 export default class AuctionEnd extends Status {
     playerId;
@@ -9,14 +9,12 @@ export default class AuctionEnd extends Status {
     animalId;
     amount;
 
-    constructor(room) {
+    constructor(room, playerId, bidderId, animalId, amount) {
         super(room);
-        this.playerId = room.status.playerId;
-        this.bidderId = room.status.bidderId;
-        this.animalId = room.status.animalId;
-        this.amount = room.status.amount;
-
-        this.room.emit(END_AUCTION);
+        this.playerId = playerId;
+        this.bidderId = bidderId;
+        this.animalId = animalId;
+        this.amount = amount;
     }
 
     sell(seller, buyer) {
@@ -28,10 +26,10 @@ export default class AuctionEnd extends Status {
             buyer.pay(payment);
             seller.earn(payment);
 
-            this.room.status = nextTurn(this.room);
+            this.room.status = nextTurn(this);
         } else {
             // Not enough money, restart the auction
-            this.room.status = new Auction(this.room, true);
+            this.room.status = restartAuction(this);
         }
     }
 

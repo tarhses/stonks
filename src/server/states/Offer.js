@@ -1,6 +1,6 @@
 import Status from "../Status.js";
-import nextTurn from "./nextTurn.js";
-import { MAKE_OFFER, RESTART_OFFER, SELL_ANIMAL, START_OFFER } from "../../common/signals.js";
+import nextTurn from "./transitions/nextTurn.js";
+import { MAKE_OFFER, RESTART_OFFER, SELL_ANIMAL } from "../../common/signals.js";
 
 export default class Offer extends Status {
     playerId;
@@ -23,8 +23,6 @@ export default class Offer extends Status {
         } else {
             this.count = 1;
         }
-
-        this.room.emit(START_OFFER, targetId, animalId, this.count);
     }
 
     onOffer(player, offer) {
@@ -71,7 +69,7 @@ export default class Offer extends Status {
                 target.earn(this.offer);
 
                 // Start next turn
-                this.room.status = nextTurn(this.room);
+                this.room.status = nextTurn(this);
             }
         }
     }

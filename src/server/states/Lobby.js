@@ -1,6 +1,6 @@
 import Status from "../Status.js";
-import Turn from "./Turn.js";
-import { NAME_ERROR, FULL_ERROR, REMOVE_PLAYER, ADD_PLAYER } from "../../common/signals.js";
+import startGame from "./transitions/startGame.js";
+import { ADD_PLAYER, FULL_ERROR, NAME_ERROR, REMOVE_PLAYER } from "../../common/signals.js";
 
 export default class Lobby extends Status {
     constructor(room) {
@@ -29,7 +29,7 @@ export default class Lobby extends Status {
 
     onStart() {
         if (this.room.playerCount >= 3) {
-            this.room.status = new Turn(this.room, this.room.pickPlayer());
+            this.room.status = startGame(this);
         }
     }
 

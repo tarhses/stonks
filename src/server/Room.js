@@ -49,10 +49,6 @@ export default class Room {
         }
     }
 
-    pickPlayer() {
-        return Math.floor(Math.random() * this.playerCount);
-    }
-
     pickAnimal() {
         let choice = Math.floor(Math.random() * this.animalCount);
 
