@@ -13,7 +13,8 @@ import {
     SELL_ANIMAL,
     START_AUCTION,
     START_OFFER,
-    START_TURN, STOP_BID
+    START_TURN,
+    STOP_BID
 } from "../common/signals.js";
 
 function players(state, action) {
@@ -150,6 +151,16 @@ function status(state, action, selfId) {
     }
 }
 
+function selfId(state, action) {
+    switch (action.type) {
+        case REMOVE_PLAYER:
+            return state > action.playerId ? state - 1 : state;
+
+        default:
+            return state;
+    }
+}
+
 export default (state, action) => {
     if (action.type === ENTER_ROOM) {
         return action.data;
@@ -160,9 +171,7 @@ export default (state, action) => {
             animals: animals(state.animals, action),
             status: status(state.status, action, state.selfId), // TODO: passing selfId here is kind of a hack :p
             roomId: state.roomId,
-            selfId: action.type === REMOVE_PLAYER && state.selfId > action.playerId
-                ? state.selfId - 1
-                : state.selfId
+            selfId: selfId(state.selfId, action)
         };
     }
 };
