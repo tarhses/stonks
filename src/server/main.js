@@ -37,12 +37,8 @@ io.on("connect", socket => {
         rooms.set(room.id, room);
         console.log(`[${room.id}] room created`);
 
-        return room.join(socket, playerName);
+        return room.status.onEnter(socket, playerName);
     }));
-
-    socket.on(RECREATE_ROOM, state => {
-        console.log(state);
-    });
 
     socket.on(JOIN_ROOM, withResponse((playerName, roomId) => {
         if (Player.connected(socket)) {
@@ -54,20 +50,29 @@ io.on("connect", socket => {
             return NONEXISTENT_ERROR;
         }
 
-        return room.join(socket, playerName);
+        return room.status.onEnter(socket, playerName);
     }));
 
     socket.on("disconnect", withSession(socket, (room, player) => {
-        room.leave(player);
+        room.status.onLeave(player);
         if (room.empty) {
             rooms.delete(room.id);
             console.log(`[${room.id}] room deleted`);
         }
     }));
 
-    for (const signal of [START_TURN, START_AUCTION, START_OFFER, MAKE_BID, STOP_BID, SELL_ANIMAL, MAKE_OFFER, MAKE_COUNTEROFFER]) {
-        socket.on(signal, withSession(socket, (room, ...args) => room.do(signal, args)));
-    }
+    socket.on(RECREATE_ROOM, state => {
+        console.log(state);
+    });
+
+    socket.on(START_TURN, withSession(socket, room => room.status.onStart()));
+    socket.on(START_AUCTION, withSession(socket, (room, player) => room.status.onSell(player)));
+    socket.on(START_OFFER, withSession(socket, (room, player, ...args) => room.status.onBuy(player, ...args)));
+    socket.on(MAKE_BID, withSession(socket, (room, player, ...args) => room.status.onBid(player, ...args)));
+    socket.on(STOP_BID, withSession(socket, (room, player) => room.status.onStop(player)));
+    socket.on(SELL_ANIMAL, withSession(socket, (room, player, ...args) => room.status.onDeal(player, ...args)));
+    socket.on(MAKE_OFFER, withSession(socket, (room, player, ...args) => room.status.onOffer(player, ...args)));
+    socket.on(MAKE_COUNTEROFFER, withSession(socket, (room, player, ...args) => room.status.onCounter(player, ...args)));
 });
 
 // Start the http server
