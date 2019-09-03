@@ -10,7 +10,7 @@ import {
     EARN_CAPITAL,
     END_AUCTION,
     END_GAME,
-    ENTER_ROOM,
+    JOIN_ROOM,
     MAKE_BID,
     NONEXISTENT_ERROR,
     PAY_CAPITAL,
@@ -27,7 +27,7 @@ import {
     earnCapital,
     endAuction,
     endGame,
-    enterRoom,
+    joinRoom,
     makeBid,
     payCapital,
     removePlayer,
@@ -77,9 +77,9 @@ export default function App() {
             });
 
             socket.on("reconnect", () => {
-                socket.emit(ENTER_ROOM, state.players[state.selfId].name, state.roomId, data => {
+                socket.emit(JOIN_ROOM, state.players[state.selfId].name, state.roomId, data => {
                     if (typeof data === "object") {
-                        dispatch(enterRoom(data));
+                        dispatch(joinRoom(data));
                     } else if (data === NONEXISTENT_ERROR) {
                         socket.emit(RECREATE_ROOM, state);
                     }
@@ -92,7 +92,7 @@ export default function App() {
 
     let content;
     if (!state) {
-        content = <Login onLogin={on(enterRoom)} />;
+        content = <Login onLogin={on(joinRoom)} />;
     } else if (!state.status) {
         content = <Lobby players={state.players} roomId={state.roomId} selfId={state.selfId} />;
     } else {

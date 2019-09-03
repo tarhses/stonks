@@ -8,7 +8,7 @@ import { withResponse, withSession } from "./decorators.js";
 import {
     COUNTER_OFFER,
     CREATE_ROOM,
-    ENTER_ROOM,
+    JOIN_ROOM,
     MAKE_BID,
     NONEXISTENT_ERROR,
     RECREATE_ROOM,
@@ -39,7 +39,7 @@ io.on("connect", socket => {
         return room.status.onEnter(socket, playerName);
     }));
 
-    socket.on(ENTER_ROOM, withResponse((playerName, roomId) => {
+    socket.on(JOIN_ROOM, withResponse((playerName, roomId) => {
         if (Player.connected(socket)) {
             return UNKNOWN_ERROR;
         }

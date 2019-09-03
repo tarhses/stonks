@@ -3,7 +3,7 @@ import {
     EARN_CAPITAL,
     END_AUCTION,
     END_GAME,
-    ENTER_ROOM,
+    JOIN_ROOM,
     MAKE_BID,
     PAY_CAPITAL,
     REMOVE_PLAYER,
@@ -15,8 +15,8 @@ import {
     STOP_BID
 } from "../common/signals.js";
 
-export function enterRoom(data) {
-    return { type: ENTER_ROOM, data };
+export function joinRoom(data) {
+    return { type: JOIN_ROOM, data };
 }
 
 export function addPlayer(playerName) {

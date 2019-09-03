@@ -5,7 +5,7 @@ import {
     EARN_CAPITAL,
     END_AUCTION,
     END_GAME,
-    ENTER_ROOM,
+    JOIN_ROOM,
     MAKE_BID,
     PAY_CAPITAL,
     REMOVE_PLAYER,
@@ -162,7 +162,7 @@ function selfId(state, action) {
 }
 
 export default (state, action) => {
-    if (action.type === ENTER_ROOM) {
+    if (action.type === JOIN_ROOM) {
         return action.data;
     } else {
         return {

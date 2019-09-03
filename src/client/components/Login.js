@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSocket } from "../hooks.js";
-import { CREATE_ROOM, ENTER_ROOM, FULL_ERROR, NAME_ERROR, NONEXISTENT_ERROR } from "../../common/signals.js";
+import { CREATE_ROOM, FULL_ERROR, JOIN_ROOM, NAME_ERROR, NONEXISTENT_ERROR } from "../../common/signals.js";
 
 function getRoomIdFromUrl() {
     const id = location.pathname.replace("/", ""); // remove the leading slash
@@ -35,7 +35,7 @@ export default function Login({ onLogin }) {
    function handleSubmit(event) {
         event.preventDefault(); // don't refresh the page
         if (roomId) {
-            socket.emit(ENTER_ROOM, name, roomId, handleResponse);
+            socket.emit(JOIN_ROOM, name, roomId, handleResponse);
         } else {
             socket.emit(CREATE_ROOM, name, handleResponse);
         }
