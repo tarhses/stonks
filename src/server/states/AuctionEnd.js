@@ -1,7 +1,7 @@
 import Status from "../Status.js";
 import nextTurn from "./transitions/nextTurn.js";
 import restartAuction from "./transitions/restartAuction.js";
-import { SELL_ANIMAL } from "../../common/signals.js";
+import { AUCTION_END_STATE, SELL_ANIMAL } from "../../common/signals.js";
 
 export default class AuctionEnd extends Status {
     playerId;
@@ -46,7 +46,7 @@ export default class AuctionEnd extends Status {
 
     serialize() {
         return {
-            type: "auctionEnd",
+            type: AUCTION_END_STATE,
             playerId: this.playerId,
             bidderId: this.bidderId,
             animalId: this.animalId,

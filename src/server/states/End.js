@@ -1,5 +1,5 @@
 import Status from "../Status.js";
-import { END_GAME, NONEXISTENT_ERROR } from "../../common/signals.js";
+import { END_GAME, END_STATE, NONEXISTENT_ERROR } from "../../common/signals.js";
 
 export default class End extends Status {
     constructor(room) {
@@ -13,7 +13,7 @@ export default class End extends Status {
 
     serialize() {
         return {
-            type: "end"
+            type: END_STATE
         };
     }
 

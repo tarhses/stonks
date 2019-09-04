@@ -1,4 +1,5 @@
 import Room from "./Room.js";
+import { AUCTION_STATE, OFFER_STATE } from "../common/signals.js";
 
 export default class RecoveryRoom {
     players;
@@ -12,7 +13,7 @@ export default class RecoveryRoom {
         this.animals = animals;
         this.status = status;
 
-        if (status && status.type === "auction") {
+        if (status && status.type === AUCTION_STATE) {
             status.bidders = [];
         }
 
@@ -25,11 +26,11 @@ export default class RecoveryRoom {
         player.capital = capital;
 
         if (status) {
-            if (status.type === "auction") {
+            if (status.type === AUCTION_STATE) {
                 if (status.bidding) {
                     this.status.bidders.push(selfId);
                 }
-            } else if (status.type === "offer") {
+            } else if (status.type === OFFER_STATE) {
                 if (status.playerId === selfId) {
                     this.status.offer = status.offer;
                 }

@@ -1,6 +1,7 @@
 import Status from "../Status.js";
 import startAuction from "./transitions/startAuction.js";
 import startOffer from "./transitions/startOffer.js";
+import { TURN_STATE } from "../../common/signals.js";
 
 export default class Turn extends Status {
     playerId;
@@ -25,7 +26,7 @@ export default class Turn extends Status {
 
     serialize() {
         return {
-            type: "turn",
+            type: TURN_STATE,
             playerId: this.playerId
         };
     }

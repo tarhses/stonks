@@ -7,6 +7,7 @@ import AuctionEnd from "./states/AuctionEnd.js";
 import Offer from "./states/Offer.js";
 import End from "./states/End.js";
 import rules from "../common/rules.json";
+import { AUCTION_END_STATE, AUCTION_STATE, END_STATE, OFFER_STATE, TURN_STATE } from "../common/signals.js";
 
 function generateId() {
     // Use 18 bytes (multiple of 3) to avoid base64 padding, also use a url-friendly variant
@@ -20,11 +21,11 @@ function deserializeStatus(room, data) {
     }
 
     switch (data.type) {
-        case "turn":        return Turn.deserialize(room, data);
-        case "auction":     return Auction.deserialize(room, data);
-        case "auctionEnd":  return AuctionEnd.deserialize(room, data);
-        case "offer":       return Offer.deserialize(room, data);
-        case "end":         return End.deserialize(room, data);
+        case TURN_STATE:        return Turn.deserialize(room, data);
+        case AUCTION_STATE:     return Auction.deserialize(room, data);
+        case AUCTION_END_STATE: return AuctionEnd.deserialize(room, data);
+        case OFFER_STATE:       return Offer.deserialize(room, data);
+        case END_STATE:         return End.deserialize(room, data);
     }
 }
 

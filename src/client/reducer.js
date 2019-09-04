@@ -1,12 +1,16 @@
 import rules from "../common/rules.json";
 import {
     ADD_PLAYER,
+    AUCTION_END_STATE,
+    AUCTION_STATE,
     EARN_CAPITAL,
     END_AUCTION,
     END_GAME,
+    END_STATE,
     JOIN_ROOM,
     MAKE_BID,
     MAKE_OFFER,
+    OFFER_STATE,
     PAY_CAPITAL,
     RECREATE_ROOM,
     REMOVE_PLAYER,
@@ -16,7 +20,8 @@ import {
     START_AUCTION,
     START_OFFER,
     START_TURN,
-    STOP_BID
+    STOP_BID,
+    TURN_STATE
 } from "../common/signals.js";
 
 function players(state, action) {
@@ -93,14 +98,14 @@ function status(state, action, selfId) {
     switch (action.type) {
         case START_TURN:
             return {
-                type: "turn",
+                type: TURN_STATE,
                 playerId: action.playerId
             };
 
         case START_AUCTION:
         case RESTART_AUCTION:
             return {
-                type: "auction",
+                type: AUCTION_STATE,
                 playerId: state.playerId,
                 bidderId: state.playerId,
                 animalId: action.type === START_AUCTION ? action.animalId : state.animalId,
@@ -126,7 +131,7 @@ function status(state, action, selfId) {
 
         case END_AUCTION:
             return {
-                type: "auctionEnd",
+                type: AUCTION_END_STATE,
                 playerId: state.playerId,
                 bidderId: state.bidderId,
                 animalId: state.animalId,
@@ -135,7 +140,7 @@ function status(state, action, selfId) {
 
         case START_OFFER:
             return {
-                type: "offer",
+                type: OFFER_STATE,
                 playerId: state.playerId,
                 targetId: action.targetId,
                 animalId: action.animalId,
@@ -159,7 +164,7 @@ function status(state, action, selfId) {
 
         case END_GAME:
             return {
-                type: "end"
+                type: END_STATE
             };
 
         default:

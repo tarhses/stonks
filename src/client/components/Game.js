@@ -8,15 +8,16 @@ import Capital from "./Capital.js";
 import PlayerTable from "./PlayerTable.js";
 import Chat from "./Chat.js";
 import RoomInformation from "./RoomInformation.js";
+import { AUCTION_END_STATE, AUCTION_STATE, END_STATE, OFFER_STATE, TURN_STATE } from "../../common/signals.js";
 
 export default function Game({ state, messages, dispatch }) {
     let content;
     switch (state.status.type) {
-        case "turn":       content = <Turn {...state} />;       break;
-        case "auction":    content = <Auction {...state} dispatch={dispatch} />;    break;
-        case "auctionEnd": content = <AuctionEnd {...state} />; break;
-        case "offer":      content = <Offer {...state} />;      break;
-        case "end":        content = <End {...state} />;        break;
+        case TURN_STATE:        content = <Turn {...state} />; break;
+        case AUCTION_STATE:     content = <Auction {...state} dispatch={dispatch} />; break;
+        case AUCTION_END_STATE: content = <AuctionEnd {...state} />; break;
+        case OFFER_STATE:       content = <Offer {...state} />; break;
+        case END_STATE:         content = <End {...state} />; break;
     }
 
     return (

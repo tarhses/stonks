@@ -1,6 +1,6 @@
 import Status from "../Status.js";
 import nextTurn from "./transitions/nextTurn.js";
-import { MAKE_OFFER, RESTART_OFFER, SELL_ANIMAL } from "../../common/signals.js";
+import { MAKE_OFFER, OFFER_STATE, RESTART_OFFER, SELL_ANIMAL } from "../../common/signals.js";
 
 export default class Offer extends Status {
     playerId;
@@ -76,7 +76,7 @@ export default class Offer extends Status {
 
     serialize(selfId) {
         return {
-            type: "offer",
+            type: OFFER_STATE,
             playerId: this.playerId,
             targetId: this.targetId,
             animalId: this.animalId,
