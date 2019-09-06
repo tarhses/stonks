@@ -37,5 +37,7 @@ export default class Status {
 
     onOffer() {}
 
+    onCancel() {}
+
     onCounter() {}
 }

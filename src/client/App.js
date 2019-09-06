@@ -7,6 +7,7 @@ import Lobby from "./components/Lobby.js";
 import Game from "./components/Game.js";
 import {
     ADD_PLAYER,
+    CANCEL_OFFER,
     EARN_CAPITAL,
     END_AUCTION,
     END_GAME,
@@ -26,6 +27,7 @@ import {
 } from "../common/signals.js";
 import {
     addPlayer,
+    cancelOffer,
     earnCapital,
     endAuction,
     endGame,
@@ -72,6 +74,7 @@ export default function App() {
             socket.on(MAKE_BID, on(makeBid));
             socket.on(END_AUCTION, on(endAuction));
             socket.on(START_OFFER, on(startOffer));
+            socket.on(CANCEL_OFFER, on(cancelOffer));
             socket.on(RESTART_OFFER, on(restartOffer));
             socket.on(MAKE_OFFER, on(makeOffer));
             socket.on(SELL_ANIMAL, on(sellAnimal));

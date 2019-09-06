@@ -1,5 +1,6 @@
 import {
     ADD_PLAYER,
+    CANCEL_OFFER,
     EARN_CAPITAL,
     END_AUCTION,
     END_GAME,
@@ -60,6 +61,10 @@ export function endAuction() {
 
 export function startOffer(targetId, animalId, count) {
     return { type: START_OFFER, targetId, animalId, count };
+}
+
+export function cancelOffer() {
+    return { type: CANCEL_OFFER };
 }
 
 export function restartOffer() {

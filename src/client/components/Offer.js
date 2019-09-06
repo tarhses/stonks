@@ -1,13 +1,13 @@
 import React from "react";
 import { useSocket } from "../hooks.js";
 import Capital from "./Capital.js";
-import { MAKE_COUNTEROFFER, MAKE_OFFER } from "../../common/signals.js";
+import { CANCEL_OFFER, MAKE_COUNTEROFFER, MAKE_OFFER } from "../../common/signals.js";
 import rules from "../../common/rules.json";
 
 export default function Offer({ players, capital, status, selfId }) {
     const socket = useSocket();
 
-    const { playerId, targetId, animalId, count, offer } = status;
+    const { playerId, targetId, animalId, count, offer, twice } = status;
     const player = players[playerId];
     const target = players[targetId];
     const animal = rules.animals[animalId];
@@ -32,6 +32,10 @@ export default function Offer({ players, capital, status, selfId }) {
 
                 {!offer &&
                     <Capital capital={capital} offer onSelected={list => socket.emit(MAKE_OFFER, list)} />
+                }
+
+                {!offer && !twice &&
+                    <button onClick={() => socket.emit(CANCEL_OFFER)}>Cancel</button>
                 }
             </div>
         );

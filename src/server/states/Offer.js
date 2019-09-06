@@ -1,5 +1,6 @@
 import Status from "../Status.js";
 import nextTurn from "./transitions/nextTurn.js";
+import cancelOffer from "./transitions/cancelOffer.js";
 import { MAKE_OFFER, OFFER_STATE, RESTART_OFFER, SELL_ANIMAL } from "../../common/signals.js";
 
 export default class Offer extends Status {
@@ -30,6 +31,12 @@ export default class Offer extends Status {
             this.offer = offer;
             player.emit(MAKE_OFFER, offer);
             player.broadcast(MAKE_OFFER, offer.length);
+        }
+    }
+
+    onCancel(player) {
+        if (player.id === this.playerId && !this.offer && !this.twice) {
+            this.room.status = cancelOffer(this);
         }
     }
 

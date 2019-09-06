@@ -7,6 +7,7 @@ import Room from "./Room.js";
 import RecoveryRoom from "./RecoveryRoom.js";
 import { withResponse, withSession } from "./decorators.js";
 import {
+    CANCEL_OFFER,
     CREATE_ROOM,
     JOIN_ROOM,
     MAKE_BID,
@@ -82,10 +83,11 @@ io.on("connect", socket => {
 
     socket.on(START_TURN, withSession(socket, (room, player) => room.status.onStart(player)));
     socket.on(START_AUCTION, withSession(socket, (room, player) => room.status.onSell(player)));
-    socket.on(START_OFFER, withSession(socket, (room, player, ...args) => room.status.onBuy(player, ...args)));
     socket.on(MAKE_BID, withSession(socket, (room, player, ...args) => room.status.onBid(player, ...args)));
     socket.on(STOP_BID, withSession(socket, (room, player) => room.status.onStop(player)));
     socket.on(SELL_ANIMAL, withSession(socket, (room, player, ...args) => room.status.onDeal(player, ...args)));
+    socket.on(START_OFFER, withSession(socket, (room, player, ...args) => room.status.onBuy(player, ...args)));
+    socket.on(CANCEL_OFFER, withSession(socket, (room, player) => room.status.onCancel(player)));
     socket.on(MAKE_OFFER, withSession(socket, (room, player, ...args) => room.status.onOffer(player, ...args)));
     socket.on(MAKE_COUNTEROFFER, withSession(socket, (room, player, ...args) => room.status.onCounter(player, ...args)));
 });

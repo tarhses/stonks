@@ -3,6 +3,7 @@ import {
     ADD_PLAYER,
     AUCTION_END_STATE,
     AUCTION_STATE,
+    CANCEL_OFFER,
     EARN_CAPITAL,
     END_AUCTION,
     END_GAME,
@@ -147,6 +148,12 @@ function status(state, action, selfId) {
                 count: action.count,
                 offer: null,
                 twice: false
+            };
+
+        case CANCEL_OFFER:
+            return {
+                type: TURN_STATE,
+                playerId: state.playerId
             };
 
         case RESTART_OFFER:

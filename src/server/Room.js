@@ -86,7 +86,7 @@ export default class Room {
         }
 
         this.animals[id]--;
-        return id;
+        return 6;//return id;
     }
 
     emit(...args) {

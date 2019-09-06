@@ -19,6 +19,7 @@ export const END_AUCTION = "I";
 export const MAKE_BID = "J";
 export const STOP_BID = "K";
 export const START_OFFER = "L";
+export const CANCEL_OFFER = "T";
 export const RESTART_OFFER = "M";
 export const MAKE_OFFER = "N";
 export const MAKE_COUNTEROFFER = "O";
