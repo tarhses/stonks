@@ -84,11 +84,11 @@ export default function App() {
             socket.on(RECREATE_ROOM, on(recreateRoom));
 
             socket.on("disconnect", () => {
-                setMessages(["You've been disconnected from the server.", ...messages]);
+                setMessages(["Disconnected from the room.", ...messages]);
             });
 
             socket.on("reconnect", () => {
-                setMessages(["Attempting to reconnect.", ...messages]);
+                setMessages(["Attempting to reconnect...", ...messages]);
                 socket.emit(JOIN_ROOM, state.players[state.selfId].name, state.roomId, data => {
                     if (typeof data === "object") {
                         dispatch(joinRoom(data));

@@ -12,7 +12,7 @@ export default function announcement(state, action) {
     switch (action.type) {
         case JOIN_ROOM:
         case RECREATE_ROOM:
-            return "Connected to room.";
+            return "Connected to the room.";
 
         case RESTART_AUCTION: {
             const bidder = state.players[state.status.bidderId].name;
