@@ -27,7 +27,7 @@ export default function Offer({ players, capital, status, selfId }) {
                     You {offer === null
                         ? "want"
                         : `made a ${offer.reduce((a, b) => a + b, 0)}$ offer`
-                    } to buy {what} from {who}.
+                    } to buy {what} from {who}{offer && offer.length > 0 && `: ${offer.join("$, ")}$`}.
                 </p>
 
                 {!offer &&
