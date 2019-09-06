@@ -30,7 +30,7 @@ export default function Game({ state, messages, dispatch }) {
             </div>
             <div className="row">
                 <div className="card col">
-                    <PlayerTable players={state.players} />
+                    <PlayerTable players={state.players} status={state.status} />
                 </div>
                 <div className="card col 5">
                     <Chat messages={messages} />

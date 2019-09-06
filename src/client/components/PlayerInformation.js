@@ -1,7 +1,8 @@
 import React from "react";
 import rules from "../../common/rules.json";
+import { AUCTION_STATE } from "../../common/signals.js";
 
-export default function PlayerInformation({ player }) {
+export default function PlayerInformation({ player, status }) {
     const ownedAnimals = Array
         .from(player.animals.entries()) // transform each item to [id, count]
         .filter(([, count]) => count > 0); // remove any item if count < 1
@@ -16,11 +17,12 @@ export default function PlayerInformation({ player }) {
                     ? <div><i>None</i></div>
                     : ownedAnimals.map(([id, count]) => {
                         const animal = rules.animals[id];
+                        const content = `${count} ${count === 1 ? animal.name : animal.namePlural}`;
                         return (
                             <div key={id}>
-                                {count} {count === 1
-                                    ? animal.name
-                                    : animal.namePlural
+                                {status.type === AUCTION_STATE && id === status.animalId
+                                    ? <b>{content}</b>
+                                    : content
                                 } [{animal.score}]
                             </div>
                         );

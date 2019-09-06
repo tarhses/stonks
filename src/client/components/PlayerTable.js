@@ -1,7 +1,7 @@
 import React from "react";
 import PlayerInformation from "./PlayerInformation.js";
 
-export default function PlayerTable({ players }) {
+export default function PlayerTable({ players, status }) {
     return (
         <table className="w-100">
             <thead>
@@ -13,7 +13,7 @@ export default function PlayerTable({ players }) {
             </thead>
             <tbody>
                 {players.map((player, id) =>
-                    <PlayerInformation key={id} player={player}/>
+                    <PlayerInformation key={id} player={player} status={status} />
                 )}
             </tbody>
         </table>
