@@ -2,13 +2,15 @@ import Room from "./Room.js";
 import { AUCTION_STATE, OFFER_STATE } from "../common/signals.js";
 
 export default class RecoveryRoom {
+    roomId;
     players;
     animals;
     status;
     playerCount = 0;
 
     constructor(socket, state) {
-        const { players, animals, status } = state;
+        const { roomId, players, animals, status } = state;
+        this.roomId = roomId;
         this.players = players;
         this.animals = animals;
         this.status = status;

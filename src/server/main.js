@@ -72,7 +72,7 @@ io.on("connect", socket => {
             if (recovery.connect(socket, state)) {
                 const room = recovery.recreate(io);
                 rooms.set(room.id, room);
-                room.emit(RECREATE_ROOM, room.id);
+                room.emit(RECREATE_ROOM);
                 recoveries.delete(id);
             }
         } else {
