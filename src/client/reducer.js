@@ -13,7 +13,6 @@ import {
     MAKE_OFFER,
     OFFER_STATE,
     PAY_CAPITAL,
-    RECREATE_ROOM,
     REMOVE_PLAYER,
     RESTART_AUCTION,
     RESTART_OFFER,
@@ -179,26 +178,6 @@ function status(state, action, selfId) {
     }
 }
 
-function roomId(state, action) {
-    switch (action.type) {
-        case RECREATE_ROOM:
-            return action.roomId;
-
-        default:
-            return state;
-    }
-}
-
-function selfId(state, action) {
-    switch (action.type) {
-        case REMOVE_PLAYER:
-            return state > action.playerId ? state - 1 : state;
-
-        default:
-            return state;
-    }
-}
-
 export default (state, action) => {
     if (action.type === JOIN_ROOM) {
         return action.data;
@@ -208,8 +187,8 @@ export default (state, action) => {
             capital: capital(state.capital, action),
             animals: animals(state.animals, action),
             status: status(state.status, action, state.selfId), // TODO: passing selfId here is kind of a hack :p
-            roomId: roomId(state.roomId, action),
-            selfId: selfId(state.selfId, action)
+            roomId: state.roomId,
+            selfId: state.selfId > action.playerId ? state.selfId - 1 : state.selfId
         };
     }
 };

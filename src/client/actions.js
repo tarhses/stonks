@@ -23,8 +23,8 @@ export function joinRoom(data) {
     return { type: JOIN_ROOM, data };
 }
 
-export function recreateRoom(roomId) {
-    return { type: RECREATE_ROOM, roomId };
+export function recreateRoom() {
+    return { type: RECREATE_ROOM };
 }
 
 export function addPlayer(playerName) {

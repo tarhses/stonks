@@ -36,8 +36,8 @@ export default class Room {
     status;
     io;
 
-    constructor(io) {
-        this.id = generateId();
+    constructor(io, id) {
+        this.id = id || generateId();
         this.status = new Lobby(this);
         this.io = io;
     }
@@ -105,8 +105,8 @@ export default class Room {
         };
     }
 
-    static deserialize(io, { players, animals, status }) {
-        const room = new Room(io);
+    static deserialize(io, { players, animals, status, roomId }) {
+        const room = new Room(io, roomId);
         room.players = players.map((player, id) => Player.deserialize(room, id, player));
         room.animals = animals;
         room.status = deserializeStatus(room, status);

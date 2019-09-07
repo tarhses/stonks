@@ -6,16 +6,17 @@
 * [x] Highlight animals on auction.
 * [x] Add cancel offer button.
 * [x] Display own offer when offering.
+* [x] Don't change id on room re-creation.
+* [ ] Use room id route during game.
 * [ ] Use a lobby state instead of null.
 * [ ] Implement chat.
 * [ ] Display chat in lobby.
-* [ ] Don't change id on room re-creation.
 * [ ] Adapt chat height to div.
 * [ ] Display change on animal sell, pay and earn in history.
 * [ ] Display sum when revealing player's capital.
 * [ ] **Important!** Refactor timeouts (display, +5s when everyone stops).
 * [ ] Show animal count permanently?
-* [ ] custom rules?
+* [ ] Custom rules?
 * [ ] Avoid infinite restart on capital's reveal.
 * [ ] Complete readme (priority: rules).
 * [ ] Write specs, document more...
