@@ -35,6 +35,7 @@ export default class Room {
     animals = rules.animals.map(() => rules.animalCount);
     status;
     io;
+    #timeoutId;
 
     constructor(io, id) {
         this.id = id || generateId();
@@ -65,6 +66,19 @@ export default class Room {
         this.players.splice(id, 1);
         for (; id < this.playerCount; id++) {
             this.players[id].id--;
+        }
+    }
+
+    enter(socket, playerName) {
+        clearTimeout(this.#timeoutId);
+        return this.status.onEnter(socket, playerName);
+    }
+
+    leave(player, callback) {
+        this.status.onLeave(player);
+        if (this.players.every(p => !p.connected)) {
+            // Every player disconnected, wait 5 minutes in case of reconnection
+            this.#timeoutId = setTimeout(callback, 5 * 60 * 1000);
         }
     }
 

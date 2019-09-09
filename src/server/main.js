@@ -42,7 +42,7 @@ io.on("connect", socket => {
         rooms.set(room.id, room);
         console.log(`[${room.id}] room created`);
 
-        return room.status.onEnter(socket, playerName);
+        return room.enter(socket, playerName);
     }));
 
     socket.on(JOIN_ROOM, withResponse((playerName, roomId) => {
@@ -55,15 +55,14 @@ io.on("connect", socket => {
             return NONEXISTENT_ERROR;
         }
 
-        return room.status.onEnter(socket, playerName);
+        return room.enter(socket, playerName);
     }));
 
     socket.on("disconnect", withSession(socket, (room, player) => {
-        room.status.onLeave(player);
-        if (room.players.every(p => !p.connected)) {
+        room.leave(player, () => {
             rooms.delete(room.id);
             console.log(`[${room.id}] room deleted`);
-        }
+        });
     }));
 
     socket.on(RECREATE_ROOM, state => {
