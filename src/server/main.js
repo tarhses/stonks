@@ -68,17 +68,19 @@ io.on("connect", socket => {
 
     socket.on(RECREATE_ROOM, state => {
         const id = state.roomId;
-        if (recoveries.has(id)) {
-            const recovery = recoveries.get(id);
-            if (recovery.connect(socket, state)) {
-                const room = recovery.recreate(io);
-                rooms.set(room.id, room);
-                room.emit(RECREATE_ROOM);
-                recoveries.delete(id);
-            }
+        let recovery = recoveries.get(id);
+        if (recovery) {
+            recovery.connect(socket, state);
         } else {
-            recoveries.set(id, new RecoveryRoom(socket, state));
+            recovery = new RecoveryRoom(socket, state);
+            recoveries.set(id, recovery);
             setTimeout(() => recoveries.delete(id), 60000);
+        }
+
+        if (recovery.complete) {
+            const room = recovery.recreate(io);
+            rooms.set(id, room);
+            recoveries.delete(id);
         }
     });
 

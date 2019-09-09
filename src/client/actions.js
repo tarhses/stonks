@@ -23,8 +23,8 @@ export function joinRoom(data) {
     return { type: JOIN_ROOM, data };
 }
 
-export function recreateRoom() {
-    return { type: RECREATE_ROOM };
+export function recreateRoom(timeout) {
+    return { type: RECREATE_ROOM, timeout };
 }
 
 export function addPlayer(playerName) {

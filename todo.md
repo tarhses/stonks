@@ -10,11 +10,11 @@
 * [x] Implement chat.
 * [x] Display chat in lobby.
 * [x] Put room id in url during game.
+* [ ] **Important!** Refactor timeouts (display, +5s when everyone stops).
 * [ ] Use a lobby state instead of null.
 * [ ] Adapt chat height to div.
-* [ ] Display change on animal sell, pay and earn in history.
-* [ ] Display sum when revealing player's capital.
-* [ ] **Important!** Refactor timeouts (display, +5s when everyone stops).
+* [ ] ~~Display change on animal sell, pay and earn in history.~~
+* [ ] ~~Display sum when revealing player's capital.~~
 * [ ] Show animal count permanently?
 * [ ] Custom rules?
 * [ ] Avoid infinite restart on capital's reveal.

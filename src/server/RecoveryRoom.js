@@ -1,5 +1,5 @@
 import Room from "./Room.js";
-import { AUCTION_STATE, OFFER_STATE } from "../common/signals.js";
+import { AUCTION_STATE, OFFER_STATE, RECREATE_ROOM } from "../common/signals.js";
 
 export default class RecoveryRoom {
     roomId;
@@ -40,10 +40,15 @@ export default class RecoveryRoom {
         }
 
         this.playerCount++;
+    }
+
+    get complete() {
         return this.playerCount === this.players.length;
     }
 
     recreate(io) {
-        return Room.deserialize(io, this);
+        const room = Room.deserialize(io, this);
+        room.emit(RECREATE_ROOM, room.status.timeout);
+        return room;
     }
 }

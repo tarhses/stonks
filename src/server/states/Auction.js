@@ -90,7 +90,7 @@ export default class Auction extends Status {
         status.amount = amount;
         status.bidders = new Set(bidders);
 
-        // timeout is intentionally restarted (TODO: it causes client desync though)
+        // timeout is intentionally restarted
         return status;
     }
 }

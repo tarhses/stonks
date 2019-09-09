@@ -13,6 +13,7 @@ import {
     MAKE_OFFER,
     OFFER_STATE,
     PAY_CAPITAL,
+    RECREATE_ROOM,
     REMOVE_PLAYER,
     RESTART_AUCTION,
     RESTART_OFFER,
@@ -96,6 +97,11 @@ function animals(state, action) {
 
 function status(state, action, selfId) {
     switch (action.type) {
+        case RECREATE_ROOM:
+            return action.timeout
+                ? { ...state, timeout: action.timeout }
+                : state;
+
         case START_TURN:
             return {
                 type: TURN_STATE,
