@@ -5,6 +5,7 @@
   "incomeAnimalId": 6,
   "auctionTimeout": 40,
   "bidTimeout": 30,
+  "stopTimeout": 6,
   "animals": [
     {
       "name": "chicken",

@@ -10,7 +10,7 @@
 * [x] Implement chat.
 * [x] Display chat in lobby.
 * [x] Put room id in url during game.
-* [ ] **Important!** Refactor timeouts (display, +5s when everyone stops).
+* [x] **Important!** Refactor timeouts (display, set to 5s when everyone stops).
 * [ ] Use a lobby state instead of null.
 * [ ] Adapt chat height to div.
 * [ ] ~~Display change on animal sell, pay and earn in history.~~

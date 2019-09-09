@@ -16,6 +16,7 @@ export const START_TURN = "F";
 export const START_AUCTION = "G";
 export const RESTART_AUCTION = "H";
 export const END_AUCTION = "I";
+export const SET_TIMER = "V";
 export const MAKE_BID = "J";
 export const STOP_BID = "K";
 export const START_OFFER = "L";

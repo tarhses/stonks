@@ -1,5 +1,5 @@
 import Room from "./Room.js";
-import { AUCTION_STATE, OFFER_STATE, RECREATE_ROOM } from "../common/signals.js";
+import { AUCTION_STATE, OFFER_STATE, RECREATE_ROOM, SET_TIMER } from "../common/signals.js";
 
 export default class RecoveryRoom {
     roomId;
@@ -48,7 +48,12 @@ export default class RecoveryRoom {
 
     recreate(io) {
         const room = Room.deserialize(io, this);
-        room.emit(RECREATE_ROOM, room.status.timeout);
+
+        room.emit(RECREATE_ROOM);
+        if (this.status.type === AUCTION_STATE) {
+            room.emit(SET_TIMER, room.status.timeout);
+        }
+
         return room;
     }
 }

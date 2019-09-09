@@ -2,7 +2,7 @@ import Status from "../Status.js";
 import nextTurn from "./transitions/nextTurn.js";
 import endAuction from "./transitions/endAuction.js";
 import rules from "../../common/rules.json";
-import { AUCTION_STATE, MAKE_BID, SELL_ANIMAL } from "../../common/signals.js";
+import { AUCTION_STATE, MAKE_BID, SELL_ANIMAL, SET_TIMER } from "../../common/signals.js";
 
 export default class Auction extends Status {
     playerId;
@@ -46,18 +46,21 @@ export default class Auction extends Status {
 
         clearTimeout(this.#timeoutId);
         this.#timeoutId = setTimeout(() => this.stopAuction(), delay);
+
         return Date.now() + delay;
     }
 
     onBid(bidder, amount) {
         if (bidder.id !== this.playerId && amount > this.amount) {
+            if (bidder.id !== this.bidderId) {
+                this.bidders.add(bidder.id); // put the bidder back in the game if he previously stopped
+                this.timeout = this.startTimeout(rules.bidTimeout);
+            }
+
             this.bidderId = bidder.id;
             this.amount = amount;
-            this.timeout = this.startTimeout(rules.bidTimeout);
-            this.room.emit(MAKE_BID, this.bidderId, this.amount, this.timeout);
 
-            // Put the new highest bidder back in the game if he previously stopped
-            this.bidders.add(bidder.id);
+            this.room.emit(MAKE_BID, this.bidderId, this.amount, this.timeout);
         }
     }
 
@@ -67,7 +70,8 @@ export default class Auction extends Status {
             // If he is the only remaining bidder, he wins the auction
             this.bidders.delete(bidder.id);
             if (this.bidders.size === 0 || (this.bidders.size === 1 && this.bidders.has(this.bidderId))) {
-                this.stopAuction();
+                this.timeout = this.startTimeout(rules.stopTimeout);
+                this.room.emit(SET_TIMER, this.timeout);
             }
         }
     }
@@ -90,7 +94,7 @@ export default class Auction extends Status {
         status.amount = amount;
         status.bidders = new Set(bidders);
 
-        // timeout is intentionally restarted
+        // The timer is intentionally restarted
         return status;
     }
 }

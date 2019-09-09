@@ -13,6 +13,7 @@ import {
     RESTART_AUCTION,
     RESTART_OFFER,
     SELL_ANIMAL,
+    SET_TIMER,
     START_AUCTION,
     START_OFFER,
     START_TURN,
@@ -23,8 +24,8 @@ export function joinRoom(data) {
     return { type: JOIN_ROOM, data };
 }
 
-export function recreateRoom(timeout) {
-    return { type: RECREATE_ROOM, timeout };
+export function recreateRoom() {
+    return { type: RECREATE_ROOM };
 }
 
 export function addPlayer(playerName) {
@@ -45,6 +46,10 @@ export function startAuction(animalId, timeout) {
 
 export function restartAuction(capital, timeout) {
     return { type: RESTART_AUCTION, capital, timeout };
+}
+
+export function setTimer(timeout) {
+    return { type: SET_TIMER, timeout };
 }
 
 export function makeBid(bidderId, amount, timeout) {

@@ -22,6 +22,7 @@ import {
     RESTART_OFFER,
     SELL_ANIMAL,
     SEND_MESSAGE,
+    SET_TIMER,
     START_AUCTION,
     START_OFFER,
     START_TURN
@@ -41,6 +42,7 @@ import {
     restartAuction,
     restartOffer,
     sellAnimal,
+    setTimer,
     startAuction,
     startOffer,
     startTurn
@@ -72,6 +74,7 @@ export default function App() {
             socket.on(START_TURN, on(startTurn));
             socket.on(START_AUCTION, on(startAuction));
             socket.on(RESTART_AUCTION, on(restartAuction));
+            socket.on(SET_TIMER, on(setTimer));
             socket.on(MAKE_BID, on(makeBid));
             socket.on(END_AUCTION, on(endAuction));
             socket.on(START_OFFER, on(startOffer));
