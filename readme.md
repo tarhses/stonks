@@ -12,7 +12,7 @@
 
 ### Playing
 
-A public server is currently running on [Heroku](https://stonks-online.herokuapp.com/) : you're free to test it, some feedback is welcome as well :smile:.
+A public server is currently running on https://stonks-online.herokuapp.com/. You're free to test it, some feedback is welcome as well :smile:.
 
 ### Installation
 

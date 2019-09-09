@@ -119,7 +119,7 @@ export default class Player {
     broadcast(...args) {
         if (this.socket) {
             console.log(`[${this.room.id}] ${JSON.stringify(args).slice(1, -1)}`);
-            this.socket.broadcast.emit(...args);
+            this.socket.to(this.room.id).emit(...args);
         }
     }
 
