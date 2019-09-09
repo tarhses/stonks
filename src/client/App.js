@@ -21,6 +21,7 @@ import {
     RESTART_AUCTION,
     RESTART_OFFER,
     SELL_ANIMAL,
+    SEND_MESSAGE,
     START_AUCTION,
     START_OFFER,
     START_TURN
@@ -82,6 +83,7 @@ export default function App() {
             socket.on(PAY_CAPITAL, on(payCapital));
             socket.on(END_GAME, on(endGame));
             socket.on(RECREATE_ROOM, on(recreateRoom));
+            socket.on(SEND_MESSAGE, (playerId, text) => setMessages([`${state.players[playerId].name}: ${text}`, ...messages]));
 
             socket.on("disconnect", () => {
                 setMessages(["Disconnected from the room.", ...messages]);
@@ -106,7 +108,7 @@ export default function App() {
     if (!state) {
         content = <Login onLogin={on(joinRoom)} />;
     } else if (!state.status) {
-        content = <Lobby players={state.players} roomId={state.roomId} selfId={state.selfId} />;
+        content = <Lobby players={state.players} roomId={state.roomId} selfId={state.selfId} messages={messages} />;
     } else {
         content = <Game state={state} messages={messages} dispatch={dispatch} />;
     }

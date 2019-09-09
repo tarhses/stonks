@@ -16,6 +16,7 @@ import {
     NONEXISTENT_ERROR,
     RECREATE_ROOM,
     SELL_ANIMAL,
+    SEND_MESSAGE,
     START_AUCTION,
     START_OFFER,
     START_TURN,
@@ -90,6 +91,7 @@ io.on("connect", socket => {
     socket.on(CANCEL_OFFER, withSession(socket, (room, player) => room.status.onCancel(player)));
     socket.on(MAKE_OFFER, withSession(socket, (room, player, ...args) => room.status.onOffer(player, ...args)));
     socket.on(MAKE_COUNTEROFFER, withSession(socket, (room, player, ...args) => room.status.onCounter(player, ...args)));
+    socket.on(SEND_MESSAGE, withSession(socket, (room, player, text) => room.emit(SEND_MESSAGE, player.id, text)));
 });
 
 // Start the http server

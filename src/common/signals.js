@@ -27,3 +27,4 @@ export const SELL_ANIMAL = "P";
 export const EARN_CAPITAL = "Q";
 export const PAY_CAPITAL = "R";
 export const END_GAME = "S";
+export const SEND_MESSAGE = "U";

@@ -29,12 +29,8 @@ export default function Game({ state, messages, dispatch }) {
                 </div>
             </div>
             <div className="row">
-                <div className="card col">
-                    <PlayerTable players={state.players} status={state.status} />
-                </div>
-                <div className="card col 5">
-                    <Chat messages={messages} />
-                </div>
+                <PlayerTable players={state.players} status={state.status} />
+                <Chat messages={messages} />
             </div>
             <RoomInformation name={state.players[state.selfId].name} id={state.roomId} />
         </div>

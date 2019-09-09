@@ -1,9 +1,11 @@
 import rules from "../common/rules.json";
 import {
+    ADD_PLAYER,
     EARN_CAPITAL,
     JOIN_ROOM,
     PAY_CAPITAL,
     RECREATE_ROOM,
+    REMOVE_PLAYER,
     RESTART_AUCTION,
     SELL_ANIMAL
 } from "../common/signals.js";
@@ -13,6 +15,12 @@ export default function announcement(state, action) {
         case JOIN_ROOM:
         case RECREATE_ROOM:
             return "Connected to the room.";
+
+        case ADD_PLAYER:
+            return `${action.playerName} joined the room.`;
+
+        case REMOVE_PLAYER:
+            return `${state.players[action.playerId].name} left the room.`;
 
         case RESTART_AUCTION: {
             const bidder = state.players[state.status.bidderId].name;
