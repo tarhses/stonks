@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSocket } from "../hooks.js";
 import { stopBid } from "../actions.js";
 import rules from "../../common/rules.json";
@@ -7,8 +7,9 @@ import { MAKE_BID, STOP_BID } from "../../common/signals.js";
 export default function Auction({ players, status, selfId, dispatch }) {
     const socket = useSocket();
     const [input, setInput] = useState("");
+    const [timer, setTimer] = useState(null);
 
-    const { playerId, bidderId, animalId, amount, bidding } = status;
+    const { playerId, bidderId, animalId, amount, bidding, timeout } = status;
     const player = players[playerId];
     const bidder = players[bidderId];
     const animal = rules.animals[animalId];
@@ -31,6 +32,20 @@ export default function Auction({ players, status, selfId, dispatch }) {
         dispatch(stopBid()); // TODO: put dispatch in a context
     }
 
+    useEffect(() => {
+        setTimer(null);
+        const remaining = timeout - Date.now();
+
+        const ids = [];
+        for (let i = 1; i <= 5; i++) {
+            ids.push(setTimeout(() => {
+                setTimer(i);
+            }, remaining - i * 1000));
+        }
+
+        return () => ids.forEach(clearTimeout);
+    }, [timeout]);
+
     return (
         <div>
             <p>
@@ -44,7 +59,9 @@ export default function Auction({ players, status, selfId, dispatch }) {
                 Current highest bid : {amount}$ by {selfId === bidderId
                     ? "you"
                     : <b>{bidder.name}</b>
-                }.
+                }. {timer &&
+                    <b>{timer} seconds left!</b>
+                }
             </p>
 
             {selfId !== playerId &&
