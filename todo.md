@@ -7,10 +7,10 @@
 * [x] Add cancel offer button.
 * [x] Display own offer when offering.
 * [x] Don't change id on room re-creation.
-* [ ] Use room id route during game.
+* [x] Implement chat.
+* [x] Display chat in lobby.
+* [x] Put room id in url during game.
 * [ ] Use a lobby state instead of null.
-* [ ] Implement chat.
-* [ ] Display chat in lobby.
 * [ ] Adapt chat height to div.
 * [ ] Display change on animal sell, pay and earn in history.
 * [ ] Display sum when revealing player's capital.

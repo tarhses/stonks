@@ -104,6 +104,12 @@ export default function App() {
         }
     });
 
+    useEffect(() => {
+        if (state) {
+            history.pushState("", "", `/${state.roomId}`);
+        }
+    }, [state]);
+
     let content;
     if (!state) {
         content = <Login onLogin={on(joinRoom)} />;
