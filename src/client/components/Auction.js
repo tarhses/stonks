@@ -52,16 +52,16 @@ export default function Auction({ players, status, selfId, dispatch }) {
                 {selfId === playerId
                     ? "You are"
                     : <><b>{player.name} </b> is</>
-                } selling a {animal.name} ({animal.score} points).
+                } selling a {animal.name} ({animal.score} points). {timer &&
+                    <b>{timer} seconds left!</b>
+                }
             </p>
 
             <p>
                 Current highest bid : {amount}$ by {selfId === bidderId
                     ? "you"
                     : <b>{bidder.name}</b>
-                }. {timer &&
-                    <b>{timer} seconds left!</b>
-                }
+                }.
             </p>
 
             {selfId !== playerId &&
