@@ -11,39 +11,48 @@
       "name": "chicken",
       "namePlural": "chickens",
       "score": 10
-    }, {
+    },
+    {
       "name": "goose",
       "namePlural": "geese",
       "score": 40
-    }, {
+    },
+    {
       "name": "cat",
       "namePlural": "cats",
       "score": 90
-    }, {
+    },
+    {
       "name": "dog",
       "namePlural": "dogs",
       "score": 160
-    }, {
+    },
+    {
       "name": "sheep",
       "namePlural": "sheep",
       "score": 250
-    }, {
+    },
+    {
       "name": "goat",
       "namePlural": "goats",
       "score": 350
-    }, {
+    },
+    {
       "name": "donkey",
       "namePlural": "donkeys",
       "score": 500
-    }, {
+    },
+    {
       "name": "pig",
       "namePlural": "pigs",
       "score": 650
-    }, {
+    },
+    {
       "name": "cow",
       "namePlural": "cows",
       "score": 800
-    }, {
+    },
+    {
       "name": "horse",
       "namePlural": "horses",
       "score": 1000

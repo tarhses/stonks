@@ -1,13 +1,13 @@
-import Player from "./Player.js";
+const Player = require('./Player')
 
-export const withResponse = f => (...args) => {
-    const respond = args.pop();
-    respond(f(...args));
-};
+module.exports.withResponse = f => (...args) => {
+  const respond = args.pop()
+  respond(f(...args))
+}
 
-export const withSession = (socket, f) => (...args) => {
-    const player = Player.connected(socket);
-    if (player) {
-        f(player.room, player, ...args);
-    }
-};
+module.exports.withSession = (socket, f) => (...args) => {
+  const player = Player.connected(socket)
+  if (player) {
+    f(player.room, player, ...args)
+  }
+}

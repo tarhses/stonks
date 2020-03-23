@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": ["plugin:react/recommended", "standard"],
   "parser": "babel-eslint",
   "env": {
     "node": true,
@@ -7,12 +7,9 @@
     "es6": true
   },
   "rules": {
-    "curly": "error",
-    "semi": ["error", "always"],
-    "quotes": ["error", "double"],
-    "no-console": "warn",
-    "no-shadow": "warn",
-    "comma-dangle": "error",
-    "react/prop-types": "off"
-  }
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-unused-vars": ["error", { "varsIgnorePattern": "h|Fragment" }]
+  },
+  "ignorePatterns": ["dist/"]
 }
