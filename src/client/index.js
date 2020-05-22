@@ -1,4 +1,5 @@
-import { h, render } from 'preact'
-import App from './App.js'
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App.js";
 
-render(<App/>, document.getElementById('root'))
+ReactDOM.render(<App/>, document.getElementById("root"));

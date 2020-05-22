@@ -1,8 +1,9 @@
-const { TURN_STATE, CANCEL_OFFER } = require('../../../common/signals')
+import Turn from "../Turn.js";
+import { CANCEL_OFFER } from "../../../common/signals.js";
 
-module.exports = function cancelOffer (status) {
-  const { room, playerId } = status
+export default function cancelOffer(status) {
+    const { room, playerId } = status;
 
-  room.emit(CANCEL_OFFER)
-  room.setState(TURN_STATE, playerId)
+    room.emit(CANCEL_OFFER);
+    return new Turn(room, playerId);
 }

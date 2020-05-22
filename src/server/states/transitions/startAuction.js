@@ -1,9 +1,12 @@
-const { AUCTION_STATE, START_AUCTION } = require('../../../common/signals')
+import Auction from "../Auction.js";
+import { START_AUCTION } from "../../../common/signals.js";
 
-module.exports = function startAuction (status) {
-  const { room, playerId } = status
-  const animalId = room.pickAnimal()
+export default function startAuction(status) {
+    const { room, playerId } = status;
+    const animalId = room.pickAnimal();
 
-  room.setState(AUCTION_STATE, playerId, animalId)
-  room.emit(START_AUCTION, animalId, room.state.timeout)
+    const auction = new Auction(room, playerId, animalId);
+    room.emit(START_AUCTION, animalId, auction.timeout);
+
+    return auction;
 }

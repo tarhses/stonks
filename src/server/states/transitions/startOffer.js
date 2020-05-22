@@ -1,8 +1,11 @@
-const { OFFER_STATE, START_OFFER } = require('../../../common/signals')
+import Offer from "../Offer.js";
+import { START_OFFER } from "../../../common/signals.js";
 
-module.exports = function startOffer (status, targetId, animalId) {
-  const { room, playerId } = status
+export default function startOffer(status, targetId, animalId) {
+    const { room, playerId } = status;
 
-  room.setState(OFFER_STATE, playerId, targetId, animalId)
-  room.emit(START_OFFER, targetId, animalId, room.state.count)
+    const offer = new Offer(room, playerId, targetId, animalId);
+    room.emit(START_OFFER, targetId, animalId, offer.count);
+
+    return offer;
 }

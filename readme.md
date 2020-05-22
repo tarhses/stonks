@@ -30,7 +30,7 @@ $ npm start
 
 # Start the server in development mode,
 # restarting when any file changes (using nodemon and webpack --watch)
-$ npm run watch
+$ npm run dev
 ```
 
 ## :chart_with_upwards_trend: Why the name?
@@ -40,3 +40,5 @@ Because [memes](https://knowyourmeme.com/memes/stonks).
 ## :unlock: License
 
 This project is [MIT](http://opensource.org/licenses/MIT) licensed.
+
+:copyright: 2019, tarhses

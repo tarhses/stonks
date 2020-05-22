@@ -1,8 +1,9 @@
-const { AUCTION_END_STATE, END_AUCTION } = require('../../../common/signals')
+import AuctionEnd from "../AuctionEnd.js";
+import { END_AUCTION } from "../../../common/signals.js";
 
-module.exports = function endAuction (status) {
-  const { room, playerId, bidderId, animalId, amount } = status
+export default function endAuction(status) {
+    const { room, playerId, bidderId, animalId, amount } = status;
 
-  room.emit(END_AUCTION)
-  room.setState(AUCTION_END_STATE, playerId, bidderId, animalId, amount)
+    room.emit(END_AUCTION);
+    return new AuctionEnd(room, playerId, bidderId, animalId, amount);
 }
