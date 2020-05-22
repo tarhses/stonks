@@ -8,7 +8,7 @@
   "description": "Boursicocotte online clone.",
   "main": "src/server/main.js",
   "engines": {
-    "node": "12.9.1"
+    "node": "13.14.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
