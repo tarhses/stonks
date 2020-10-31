@@ -1,5 +1,5 @@
-import React from "react";
-import PlayerInformation from "./PlayerInformation.js";
+import { h } from "preact";
+import PlayerInformation from "./PlayerInformation.jsx";
 
 export default function PlayerTable({ players, status }) {
     return (

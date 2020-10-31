@@ -26,7 +26,7 @@ import {
 
 const app = new Express();
 const server = http.createServer(app);
-const io = new SocketServer(server, { serveClient: false }); // don't serve the client, webpack will
+const io = new SocketServer(server, { serveClient: false }); // don't serve the client, rollup will
 
 const rooms = new Map();
 const recoveries = new Map();
@@ -97,6 +97,6 @@ io.on("connect", socket => {
 
 // Start the http server
 // Whatever the request, we'll respond with "index.html"
-app.use(Express.static("./dist"));
-app.use((req, res) => res.sendFile(path.resolve("./dist/index.html")));
-server.listen(process.env.PORT || 8080);
+app.use(Express.static("./public"));
+app.use((req, res) => res.sendFile(path.resolve("./public/index.html")));
+server.listen(process.env.PORT || 8000);

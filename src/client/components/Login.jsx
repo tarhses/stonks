@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { h } from "preact";
+import { useState } from "preact/hooks";
 import { useSocket } from "../hooks.js";
 import { CREATE_ROOM, FULL_ERROR, JOIN_ROOM, NAME_ERROR, NONEXISTENT_ERROR } from "../../common/signals.js";
 
@@ -75,7 +76,7 @@ export default function Login({ onLogin }) {
             </form>
 
             <div style={{ "float": "right" }}>
-                <p><small><code>Version 1.2.0 - (c) 2019, tarhses</code></small></p>
+                <p><small><code>Version 1.2.1 - (c) 2020, tarhses</code></small></p>
             </div>
         </div>
     );

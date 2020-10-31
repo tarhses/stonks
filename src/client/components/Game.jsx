@@ -1,13 +1,13 @@
-import React from "react";
-import Turn from "./Turn.js";
-import Auction from "./Auction.js";
-import AuctionEnd from "./AuctionEnd.js";
-import Offer from "./Offer.js";
-import End from "./End.js";
-import Capital from "./Capital.js";
-import PlayerTable from "./PlayerTable.js";
-import Chat from "./Chat.js";
-import RoomInformation from "./RoomInformation.js";
+import { h } from "preact";
+import Turn from "./Turn.jsx";
+import Auction from "./Auction.jsx";
+import AuctionEnd from "./AuctionEnd.jsx";
+import Offer from "./Offer.jsx";
+import End from "./End.jsx";
+import Capital from "./Capital.jsx";
+import PlayerTable from "./PlayerTable.jsx";
+import Chat from "./Chat.jsx";
+import RoomInformation from "./RoomInformation.jsx";
 import { AUCTION_END_STATE, AUCTION_STATE, END_STATE, OFFER_STATE, TURN_STATE } from "../../common/signals.js";
 
 export default function Game({ state, messages, dispatch }) {

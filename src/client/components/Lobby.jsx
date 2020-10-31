@@ -1,7 +1,7 @@
-import React from "react";
+import { h } from "preact";
 import { useSocket } from "../hooks.js";
-import Chat from "./Chat.js";
-import RoomInformation from "./RoomInformation.js";
+import Chat from "./Chat.jsx";
+import RoomInformation from "./RoomInformation.jsx";
 import { START_TURN } from "../../common/signals.js";
 
 export default function Lobby({ players, roomId, selfId, messages }) {

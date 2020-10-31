@@ -1,5 +1,2 @@
-dist/
-node_modules/
-
-# IDE-specific files
-.idea/
+node_modules
+public/build

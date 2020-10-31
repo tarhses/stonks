@@ -1,40 +1,25 @@
 {
   "name": "stonks",
-  "private": true,
   "type": "module",
-  "version": "1.2.0",
-  "author": "tarhses",
-  "license": "MIT",
-  "description": "Boursicocotte online clone.",
-  "main": "src/server/main.js",
-  "engines": {
-    "node": "13.14.0"
-  },
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode=production --config webpack.config.cjs",
-    "start": "node --experimental-modules --experimental-json-modules src/server/main.js",
-    "dev": "webpack -w --mode=development --config webpack.config.cjs & nodemon -w src -i src/client --experimental-modules --experimental-json-modules src/server/main.js"
+    "start": "node --experimental-json-modules src/server/main.js",
+    "build": "rollup -c"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "preact": "^10.5.5",
     "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "clean-webpack-plugin": "^3.0.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.20.0",
-    "html-webpack-plugin": "^3.2.0",
-    "nodemon": "^1.19.4",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-react-jsx": "^7.12.1",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "rollup": "^2.32.1",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }

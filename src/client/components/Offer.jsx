@@ -1,6 +1,6 @@
-import React from "react";
+import { h } from "preact";
 import { useSocket } from "../hooks.js";
-import Capital from "./Capital.js";
+import Capital from "./Capital.jsx";
 import { CANCEL_OFFER, MAKE_COUNTEROFFER, MAKE_OFFER } from "../../common/signals.js";
 import rules from "../../common/rules.json";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import { h, Fragment } from "preact";
 import { useSocket } from "../hooks.js";
 import { SELL_ANIMAL } from "../../common/signals.js";
 import rules from "../../common/rules.json";

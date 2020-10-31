@@ -1,4 +1,4 @@
-> **WIP: This game, while currently playable, is still a work in progress. Please understand that it requires some more testing, refactoring, polishing and documentation.**
+> **Archived: I'm working on a new enhanced version, this will stay here as a backup.**
 
 # :moneybag: Stonks Online
 
@@ -16,7 +16,7 @@ A public server is currently running on https://stonks-online.herokuapp.com/. Yo
 
 ### Installation
 
-You can start a server using the npm package manager. It will listen to port 8080 by default. This behavior can be changed by defining the `PORT` environment variable.
+You can start a server using the npm package manager. It will listen to port 8000 by default. This behavior can be changed by defining the `PORT` environment variable.
 
 Here are the available commands :
 
@@ -26,7 +26,7 @@ $ npm install
 
 # Build and start the server in production mode
 $ npm run build
-$ npm start
+$ npm run start
 
 # Start the server in development mode,
 # restarting when any file changes (using nodemon and webpack --watch)
@@ -41,4 +41,4 @@ Because [memes](https://knowyourmeme.com/memes/stonks).
 
 This project is [MIT](http://opensource.org/licenses/MIT) licensed.
 
-:copyright: 2019, tarhses
+:copyright: 2020, Pierre Luycx

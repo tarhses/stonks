@@ -1,4 +1,4 @@
-import React from "react";
+import { h } from "preact";
 import rules from "../../common/rules.json";
 
 export default function End({ players }) {

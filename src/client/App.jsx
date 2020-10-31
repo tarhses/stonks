@@ -1,10 +1,11 @@
-import React, { useEffect, useReducer, useState } from "react";
+import { h } from "preact";
+import { useEffect, useReducer, useState } from "preact/hooks";
 import { useSocket } from "./hooks.js";
 import reducer from "./reducer.js";
 import announcement from "./announcement.js";
-import Login from "./components/Login.js";
-import Lobby from "./components/Lobby.js";
-import Game from "./components/Game.js";
+import Login from "./components/Login.jsx";
+import Lobby from "./components/Lobby.jsx";
+import Game from "./components/Game.jsx";
 import {
     ADD_PLAYER,
     CANCEL_OFFER,

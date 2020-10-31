@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { h, Fragment } from "preact";
+import { useEffect, useState } from "preact/hooks";
 import { useSocket } from "../hooks.js";
 import { stopBid } from "../actions.js";
 import rules from "../../common/rules.json";
