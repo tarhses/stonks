@@ -76,7 +76,7 @@ export default function Login({ onLogin }) {
             </form>
 
             <div style={{ "float": "right" }}>
-                <p><small><code>Version 1.2.1 - (c) 2020, Pierre Luycx</code></small></p>
+                <p><small><code>Version 1.2.1 - (c) 2021, Pierre Luycx</code></small></p>
             </div>
         </div>
     );
