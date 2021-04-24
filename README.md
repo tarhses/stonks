@@ -1,5 +1,3 @@
-> **Archived: I'm working on a new enhanced version, this will stay here as a backup.**
-
 # :moneybag: Stonks Online
 
 **Stonks** is an online clone of the German board game _Kuhhandel_ (also known in different languages as "_You're Bluffing_", "_Boursicocotte_", "_Koehandel_" and "_Pague para ver!_" according to Wikipedia). It uses Node, Express, React and Socket.io and was made as a learning project for modern web development.
@@ -12,7 +10,7 @@
 
 ### Playing
 
-A public server is currently running on https://stonks-online.herokuapp.com/. You're free to test it, some feedback is welcome as well :smile:.
+A public server is currently running on https://stonks.e-kot.be/. You're free to test it, some feedback is welcome as well :smile:.
 
 ### Installation
 
@@ -41,4 +39,4 @@ Because [memes](https://knowyourmeme.com/memes/stonks).
 
 This project is [MIT](http://opensource.org/licenses/MIT) licensed.
 
-:copyright: 2020, Pierre Luycx
+:copyright: 2021, Pierre Luycx
