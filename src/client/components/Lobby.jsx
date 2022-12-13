@@ -11,8 +11,8 @@ export default function Lobby({ players, roomId, selfId, messages }) {
 	return (
 		<div>
 			<RoomInformation name={players[selfId].name} id={roomId} />
-			<div className="row">
-				<div className="card col">
+			<div class="row">
+				<div class="card col">
 					{remaining > 0 ? (
 						<p>
 							Waiting for {remaining} more player{remaining > 1 && "s"}.
@@ -34,7 +34,7 @@ export default function Lobby({ players, roomId, selfId, messages }) {
 
 			<hr />
 			<button
-				className="btn primary w-100"
+				class="btn primary w-100"
 				onClick={() => socket.emit(START_TURN)}
 				disabled={selfId !== 0 || remaining > 0}
 			>

@@ -26,7 +26,7 @@ import {
 
 const app = new Express()
 const server = http.createServer(app)
-const io = new Server(server, { serveClient: false }) // don't serve the client, rollup will
+const io = new Server(server, { serveClient: false })
 
 const rooms = new Map()
 const recoveries = new Map()

@@ -2,8 +2,8 @@ import PlayerInformation from "./PlayerInformation.jsx"
 
 export default function PlayerTable({ players, status }) {
 	return (
-		<div className="card col">
-			<table className="w-100">
+		<div class="card col">
+			<table class="w-100">
 				<thead>
 					<tr>
 						<th>Name</th>

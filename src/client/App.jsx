@@ -94,7 +94,7 @@ export default function App() {
 				setMessages(["Disconnected from the room.", ...messages])
 			})
 
-			socket.on("reconnect", () => {
+			socket.io.on("reconnect", () => {
 				setMessages(["Attempting to reconnect...", ...messages])
 				socket.emit(
 					JOIN_ROOM,
@@ -137,7 +137,7 @@ export default function App() {
 	}
 
 	return (
-		<div className="c">
+		<div class="c">
 			<h1>Stonks</h1>
 			{content}
 		</div>

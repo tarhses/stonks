@@ -60,22 +60,22 @@ export default function Login({ onLogin }) {
 			<form onSubmit={handleSubmit}>
 				<label>Name</label>
 				<input
-					className="card w-100"
+					class="card w-100"
 					value={name}
-					onChange={(event) => setName(event.target.value)}
+					onInput={(event) => setName(event.target.value)}
 				/>
 
 				<label>Room ID</label>
 				<input
-					className="card w-100"
+					class="card w-100"
 					value={roomId}
-					onChange={(event) => setRoomId(event.target.value)}
+					onInput={(event) => setRoomId(event.target.value)}
 				/>
 				<small>Leave this field empty to create a new room.</small>
 
 				<hr />
 				<button
-					className="btn primary w-100"
+					class="btn primary w-100"
 					type="submit"
 					disabled={/\s|^$/.test(name)}
 				>

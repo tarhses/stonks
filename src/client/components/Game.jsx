@@ -38,12 +38,12 @@ export default function Game({ state, messages, dispatch }) {
 	return (
 		<div>
 			{content}
-			<div className="row">
-				<div className="card col">
+			<div class="row">
+				<div class="card col">
 					<Capital capital={state.capital} />
 				</div>
 			</div>
-			<div className="row">
+			<div class="row">
 				<PlayerTable players={state.players} status={state.status} />
 				<Chat messages={messages} />
 			</div>

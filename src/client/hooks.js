@@ -1,6 +1,6 @@
-import Socket from "socket.io-client"
+import io from "socket.io-client"
 
-const socket = new Socket()
+const socket = io()
 
 export function useSocket() {
 	return socket

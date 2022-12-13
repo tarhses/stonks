@@ -71,7 +71,7 @@ export default function Auction({ players, status, selfId, dispatch }) {
 				<form onSubmit={handleBid}>
 					<input
 						value={input}
-						onChange={(event) => setInput(event.target.value)}
+						onInput={(event) => setInput(event.target.value)}
 						placeholder={Math.floor(amount / 10 + 1) * 10}
 					/>
 					<button type="submit">Make a bid</button>

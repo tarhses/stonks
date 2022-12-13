@@ -18,7 +18,7 @@ export default function Capital({ capital, offer, onSelected }) {
 							<input
 								type="checkbox"
 								checked={selection[id]}
-								onChange={() =>
+								onInput={() =>
 									setSelection(selection.map((b, i) => (i === id ? !b : b)))
 								}
 							/>

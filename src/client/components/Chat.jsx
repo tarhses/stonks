@@ -13,7 +13,7 @@ export default function Chat({ messages }) {
 	}
 
 	return (
-		<div className="card col 5">
+		<div class="card col 5">
 			<ul style={{ height: "24em", overflowY: "auto" }}>
 				{messages.length === 0 ? (
 					<li>
@@ -27,7 +27,7 @@ export default function Chat({ messages }) {
 			<form onSubmit={handleSubmit}>
 				<input
 					value={text}
-					onChange={(event) => setText(event.target.value)}
+					onInput={(event) => setText(event.target.value)}
 					placeholder="Message"
 				/>
 				<button type="submit" disabled={/^\s*$/.test(text)}>
