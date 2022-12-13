@@ -1,4 +1,4 @@
-import { h, render } from "preact";
-import App from "./App.jsx";
+import { render } from "preact"
+import App from "./App.jsx"
 
-render(<App />, document.body);
+render(<App />, document.body)

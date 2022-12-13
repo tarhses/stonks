@@ -1,43 +1,43 @@
-import { FULL_ERROR } from "../common/signals.js";
+import { FULL_ERROR } from "../common/signals.js"
 
 export default class Status {
-    room;
+	room
 
-    constructor(room) {
-        this.room = room;
-    }
+	constructor(room) {
+		this.room = room
+	}
 
-    onEnter(socket, playerName) {
-        // Only admit reconnections
-        const player = this.room.findPlayer(playerName);
-        if (!player || player.connected) {
-            return FULL_ERROR;
-        }
+	onEnter(socket, playerName) {
+		// Only admit reconnections
+		const player = this.room.findPlayer(playerName)
+		if (!player || player.connected) {
+			return FULL_ERROR
+		}
 
-        player.connect(socket);
-        return this.room.serialize(player.id);
-    }
+		player.connect(socket)
+		return this.room.serialize(player.id)
+	}
 
-    onLeave(player) {
-        // Leave a chance to reconnect
-        player.disconnect();
-    }
+	onLeave(player) {
+		// Leave a chance to reconnect
+		player.disconnect()
+	}
 
-    onStart() {}
+	onStart() {}
 
-    onSell() {}
+	onSell() {}
 
-    onBid() {}
+	onBid() {}
 
-    onStop() {}
+	onStop() {}
 
-    onDeal() {}
+	onDeal() {}
 
-    onBuy() {}
+	onBuy() {}
 
-    onOffer() {}
+	onOffer() {}
 
-    onCancel() {}
+	onCancel() {}
 
-    onCounter() {}
+	onCounter() {}
 }

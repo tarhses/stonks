@@ -13,4 +13,4 @@ ENV NODE_ENV production
 ENV PORT 80
 EXPOSE 80
 
-CMD ["node", "--experimental-json-modules", "src/server/main.js"]
+CMD ["node", "src/server/main.js"]

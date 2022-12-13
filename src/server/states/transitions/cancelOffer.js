@@ -1,9 +1,9 @@
-import Turn from "../Turn.js";
-import { CANCEL_OFFER } from "../../../common/signals.js";
+import Turn from "../Turn.js"
+import { CANCEL_OFFER } from "../../../common/signals.js"
 
 export default function cancelOffer(status) {
-    const { room, playerId } = status;
+	const { room, playerId } = status
 
-    room.emit(CANCEL_OFFER);
-    return new Turn(room, playerId);
+	room.emit(CANCEL_OFFER)
+	return new Turn(room, playerId)
 }
